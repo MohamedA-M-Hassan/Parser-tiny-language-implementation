@@ -64,7 +64,7 @@ void MainWindow::on_pushButton_clicked()
 
     QVector <pair <QString,QString> > answer;
 
-    QVector <QString>parserInput;
+    //QVector <QString>parserInput;
     QString type;
     for (int i = 0 ;i < (text.size()+1);i++){
      //   QChar ch = text[i];
@@ -232,11 +232,11 @@ void MainWindow::on_pushButton_clicked()
         QTableWidgetItem *newItem2 = new QTableWidgetItem(it->second);
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
     }
-
-    for(it=parserInput.begin(); it != parserInput.end(); it++) {
-            if (*it == "if")
+    index=0;
+    for(index; index<  parserInput.size(); index++) {
+            if (parserInput[index] == "if")
             {
-                ifStmt(it);
+                ifStmt(parserInput[index]);
             }
     }
     /*QMessageBox msgBox;
@@ -248,9 +248,10 @@ void MainWindow::on_pushButton_clicked()
 
 
 
-void MainWindow::ifStmt(QVector<QString> ::iterator pointerToCurrentToken){
-    match(pointerToCurrentToken, "if");
-    //match(pointerToCurrentToken, "end");
+void MainWindow::ifStmt(QString currentToken){
+    match(currentToken, "if");
+
+    match(parserInput[index], "end");
     /*
 
     exp ();
@@ -272,17 +273,16 @@ void MainWindow::ifStmt(QVector<QString> ::iterator pointerToCurrentToken){
 void stmtSequnce(){
 
 }*/
-void  MainWindow::match (QVector<QString> ::iterator pointerToCurrentToken,QString expectedToken){
-    if (*pointerToCurrentToken == expectedToken)
+void  MainWindow::match (QString currentToken,QString expectedToken){
+    if (currentToken == expectedToken)
     {
-        QString x=*pointerToCurrentToken;
         // 23ml 7aga
-        pointerToCurrentToken++;
+        index++;
+
     }
       
     else
     {  
-         QString x=*pointerToCurrentToken;
         QMessageBox msgBox;
         msgBox.setText("Error ya s7by");
         msgBox.exec();       

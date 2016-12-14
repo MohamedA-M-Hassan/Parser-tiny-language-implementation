@@ -15,8 +15,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void ifStmt(QVector<QString> ::iterator pointerToCurrentToken);
-    void  match (QVector<QString> ::iterator pointerToCurrentToken,QString expectedToken);
+    void ifStmt(QString currentToken);
+    void  match (QString currentToken,QString expectedToken);
 private slots:
     void on_pushButton_clicked();
 
@@ -30,11 +30,13 @@ private slots:
 
     void on_pushButton_5_clicked();
 
-    void on_pushButton_6_clicked();
 
 private:
     Ui::MainWindow *ui;
+
     QVector<QString> ::iterator it;
+    int index;
+    QVector <QString>parserInput;
 };
 
 #endif // MAINWINDOW_H
