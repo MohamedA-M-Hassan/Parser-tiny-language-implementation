@@ -37,12 +37,12 @@ QVector<QString> ::iterator it;
 
 void MainWindow::on_pushButton_clicked()
 {
-    // get inputParser empty
-    //if(!parserInput.isEmpty()){for (int i =0;i<parserInput.size();i++){parserInput.remove(i);}}
-    //if(!parserInput.isEmpty()){parserInput.erase(parserInput.begin(),parserInput.end()+1);}
+
 
     using namespace std;
+    // as it is a glbal variable: to ensure every time i click, i restart it
     parserInput.clear();
+
     QString text = ui->textEdit->toPlainText(); // read the input
 
     QMap<QString,QString> token;
@@ -54,23 +54,16 @@ void MainWindow::on_pushButton_clicked()
     token["else"]   ="else";
     token["repeat"] ="repeat";
     token["read"]   ="read";
-    //token["+"]      ="plus";
-    //token["-"]      ="minus";
-    //token["*"]      ="multiple";
-    //token["/"]      ="divide";
-    //token[";"]      ="SEMI";
-    //token[":="]     ="ASSIGN";
 
     enum state{start,inComment,inID,inNum,inAssign,done};
     state s=start;
 
     QString myCharContainer="";
-    //QMap <QString,QString>outputToken;
 
     QVector <pair <QString,QString> > answer;
-
-    //QVector <QString>parserInput;
     QString type;
+    //////////////////////////////////////////
+    // scanner part
     for (int i = 0 ;i < (text.size()+1);i++){
      //   QChar ch = text[i];
         label:  switch (s) {   // the label to not waste the current char
@@ -238,6 +231,8 @@ void MainWindow::on_pushButton_clicked()
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
     }
 
+    /////////////////////////////////////////////////////////////////////
+    // parser part
     index=0;
     for(index; index<  parserInput.size(); index++) {
             if (parserInput[index] == "if")
@@ -245,46 +240,35 @@ void MainWindow::on_pushButton_clicked()
                 ifStmt(parserInput[index]);
             }
     }
-    /*QMessageBox msgBox;
-    msgBox.setText("The document has been modified.");
-    msgBox.exec();
-    */
-
 }
 
 
-
+// function No 2
 void MainWindow::ifStmt(QString currentToken){
     match(currentToken, "if");
-
-    match(parserInput[index], "end");
-    /*
-
     exp ();
-    match(currentToken,"THEN token");
+    match(parserInput[index],"then");
     stmtSequnce();
     // to check if there is "ELSE"
-    if (currentToken=="ELSE token")
+    if (parserInput[index]=="else")
     {
-        match(currentToken,"ELSE token");
+        match(parserInput[index],"else");
         stmtSequnce();
     }
-    match(currentToken,"END token");
-    */
+    match(parserInput[index],"end");
 } 
 // still empty
-/*void exp (){
+void MainWindow::exp (){
 
 }
-void stmtSequnce(){
+void MainWindow::stmtSequnce(){
 
-}*/
+}
 void  MainWindow::match (QString currentToken,QString expectedToken){
     if (currentToken == expectedToken)
     {
         // 23ml 7aga
         index++;
-
     }
       
     else
@@ -327,6 +311,11 @@ void MainWindow::on_pushButton_4_clicked()
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->hide();
     ui->label_2->hide();
+    //-------------------
+    // parser part
+    // as it is a glbal variable: to ensure every time i click, i restart it
+    parserInput.clear();
+
 }
 
 // insert button

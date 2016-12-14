@@ -17,6 +17,8 @@ public:
     ~MainWindow();
     void ifStmt(QString currentToken);
     void  match (QString currentToken,QString expectedToken);
+    void exp ();
+    void stmtSequnce();
 private slots:
     void on_pushButton_clicked();
 
