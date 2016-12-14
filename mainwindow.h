@@ -16,9 +16,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void ifStmt(QString currentToken);
-    void  match (QString currentToken,QString expectedToken);
     void exp ();
     void stmtSequnce();
+    void mulop(QString currentToken,QString expectedToken);
+    void  match (QString currentToken,QString expectedToken);
 private slots:
     void on_pushButton_clicked();
 

@@ -243,7 +243,7 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
-// function No 2
+// function No 4
 void MainWindow::ifStmt(QString currentToken){
     match(currentToken, "if");
     exp ();
@@ -264,6 +264,11 @@ void MainWindow::exp (){
 void MainWindow::stmtSequnce(){
 
 }
+// fn No 14
+void MainWindow::mulop(QString currentToken,QString expectedToken){
+     match(currentToken,expectedToken);
+}
+// fn No 16
 void  MainWindow::match (QString currentToken,QString expectedToken){
     if (currentToken == expectedToken)
     {
