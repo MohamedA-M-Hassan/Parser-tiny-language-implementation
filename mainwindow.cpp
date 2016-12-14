@@ -37,7 +37,12 @@ QVector<QString> ::iterator it;
 
 void MainWindow::on_pushButton_clicked()
 {
+    // get inputParser empty
+    //if(!parserInput.isEmpty()){for (int i =0;i<parserInput.size();i++){parserInput.remove(i);}}
+    //if(!parserInput.isEmpty()){parserInput.erase(parserInput.begin(),parserInput.end()+1);}
+
     using namespace std;
+    parserInput.clear();
     QString text = ui->textEdit->toPlainText(); // read the input
 
     QMap<QString,QString> token;
@@ -232,6 +237,7 @@ void MainWindow::on_pushButton_clicked()
         QTableWidgetItem *newItem2 = new QTableWidgetItem(it->second);
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
     }
+
     index=0;
     for(index; index<  parserInput.size(); index++) {
             if (parserInput[index] == "if")
