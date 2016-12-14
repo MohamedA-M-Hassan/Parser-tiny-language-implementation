@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
+#include "treenode.h"
 // to insert from file
     #include <QFileDialog>
     #include <QFile>
@@ -11,7 +11,6 @@
 #include <QString>
 #include <QMap>
 #include <QQueue>
-// copy paste to check if num or n
 
 using namespace std;
 
@@ -27,13 +26,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->textBrowser->hide();
     ui->tableWidget->hide();
    // ui->pushButton_6->hide();
+    //void ifStmt(QString currentToken);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+QVector<QString> ::iterator it;
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -41,14 +41,14 @@ void MainWindow::on_pushButton_clicked()
     QString text = ui->textEdit->toPlainText(); // read the input
 
     QMap<QString,QString> token;
-    token["if"]     ="IF token";
-    token["then"]   ="THEN token";
-    token["end"]    ="END token";
-    token["until"]  ="UNTIL token";
-    token["write"]  ="WRITE token";
-    token["else"]   ="ELSE token";
-    token["repeat"] ="REPEAT token";
-    token["read"]   ="READ token";
+    token["if"]     ="if";
+    token["then"]   ="then";
+    token["end"]    ="end";
+    token["until"]  ="until";
+    token["write"]  ="write";
+    token["else"]   ="else";
+    token["repeat"] ="repeat";
+    token["read"]   ="read";
     //token["+"]      ="plus";
     //token["-"]      ="minus";
     //token["*"]      ="multiple";
@@ -233,13 +233,26 @@ void MainWindow::on_pushButton_clicked()
         ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
     }
 
-    for (QVector< pair <QString,QString> >::iterator it=answer.begin(); it != answer.end(); it++) {
-
+    for(it=parserInput.begin(); it != parserInput.end(); it++) {
+            if (*it == "if")
+            {
+                ifStmt(it);
+            }
     }
+    /*QMessageBox msgBox;
+    msgBox.setText("The document has been modified.");
+    msgBox.exec();
+    */
+
 }
-/*
-void ifStmt(QString currentToken){
-    match(currentToken, "IF token");
+
+
+
+void MainWindow::ifStmt(QVector<QString> ::iterator pointerToCurrentToken){
+    match(pointerToCurrentToken, "if");
+    //match(pointerToCurrentToken, "end");
+    /*
+
     exp ();
     match(currentToken,"THEN token");
     stmtSequnce();
@@ -250,29 +263,32 @@ void ifStmt(QString currentToken){
         stmtSequnce();
     }
     match(currentToken,"END token");
-
+    */
 } 
 // still empty
-void exp (){
+/*void exp (){
 
 }
 void stmtSequnce(){
 
-}
-void  match (QString currentToken,QString expectedToken){
-    if (currentToken == expectedToken)
+}*/
+void  MainWindow::match (QVector<QString> ::iterator pointerToCurrentToken,QString expectedToken){
+    if (*pointerToCurrentToken == expectedToken)
     {
-     // 23ml 7aga
+        QString x=*pointerToCurrentToken;
+        // 23ml 7aga
+        pointerToCurrentToken++;
     }
       
     else
     {  
+         QString x=*pointerToCurrentToken;
         QMessageBox msgBox;
-        msgBox.setText("The document has been modified.");
+        msgBox.setText("Error ya s7by");
         msgBox.exec();       
     }
 }
-*/
+
 void MainWindow::on_textEdit_destroyed()
 {
  //   trial = "hi";
