@@ -263,6 +263,11 @@ void MainWindow::assignStmt(QString currentToken){
     match(parserInput[index],"assignment operator");
     exp();
 }
+// fn No 8
+void MainWindow::writeStmt(QString currentToken){
+    match(currentToken,"write");
+    exp();
+}
 // still empty
 void MainWindow::exp (){
 

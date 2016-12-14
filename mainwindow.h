@@ -17,6 +17,7 @@ public:
     ~MainWindow();
     void ifStmt(QString currentToken);
     void assignStmt(QString currentToken);
+    void writeStmt(QString currentToken);
     void exp ();
     void stmtSequnce();
     void addOp(QString currentToken);
