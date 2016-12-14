@@ -143,7 +143,7 @@ void MainWindow::on_pushButton_clicked()
                    if (text[i]=='=')
                    {
                        myCharContainer= myCharContainer+(text[i]);
-                        type="Assignment operator";
+                        type="assignment operator";
 
                    }
                    else{
@@ -257,6 +257,12 @@ void MainWindow::ifStmt(QString currentToken){
     }
     match(parserInput[index],"end");
 } 
+// fn No 6
+void MainWindow::assignStmt(QString currentToken){
+    match(currentToken,"identefier");
+    match(parserInput[index],"assignment operator");
+    exp();
+}
 // still empty
 void MainWindow::exp (){
 
@@ -264,9 +270,14 @@ void MainWindow::exp (){
 void MainWindow::stmtSequnce(){
 
 }
+//fn No 12
+void MainWindow::addOp(QString currentToken){
+
+
+}
 // fn No 14
-void MainWindow::mulop(QString currentToken,QString expectedToken){
-     match(currentToken,expectedToken);
+void MainWindow::mulOp(QString currentToken){
+     //match(currentToken,expectedToken);
 }
 // fn No 16
 void  MainWindow::match (QString currentToken,QString expectedToken){
