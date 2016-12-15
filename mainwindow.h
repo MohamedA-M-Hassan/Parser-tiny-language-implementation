@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include <QString>
 #include <QMainWindow>
 
 
@@ -15,15 +15,27 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void ifStmt(QVector<QString> ::iterator pointerToCurrentToken);
-    void assignStmt(QVector<QString> ::iterator pointerToCurrentToken);
-    void writeStmt(QVector<QString> ::iterator pointerToCurrentToken);
+
+    void ifStmt();
+
     void exp ();
+    void program();
     void stmtSequnce();
+    void stmt();
+    void readStmt();
+    void repeatStmt();
+    void assignStmt();
+    void writeStmt();
+
+    //void stmtSequnce(QVector<QString>::iterator token);
+    //void stmtSequnce(QVector<QString>::iterator token);
+
+    void mulop(QString currentToken,QString expectedToken);
+    void  match (QString expectedToken);
     void addOp(QVector<QString> ::iterator pointerToCurrentToken);
     void mulOp(QVector<QString> ::iterator pointerToCurrentToken);
-    void  match (QVector<QString> ::iterator pointerToCurrentToken,QString expectedToken);
-private slots:
+  
+  private slots:
     void on_pushButton_clicked();
 
     void on_textEdit_destroyed();
