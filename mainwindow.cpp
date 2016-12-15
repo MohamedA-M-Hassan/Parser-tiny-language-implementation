@@ -234,15 +234,74 @@ void MainWindow::on_pushButton_clicked()
     /////////////////////////////////////////////////////////////////////
     // parser part
     index=0;
-    for(index; index<  parserInput.size(); index++) {
-            if (parserInput[index] == "if")
+    it=parserInput.begin();
+    for(it; it!=  parserInput.end(); ++it) {
+            if (*it == "if")
             {
-                ifStmt(parserInput[index]);
+                ifStmt(it);
             }
     }
 }
 
+// fn No 4
+void MainWindow::ifStmt(QVector<QString> ::iterator pointerToCurrentToken){
+    match(pointerToCurrentToken, "if");
+    exp ();
+    match(it,"then");
+    stmtSequnce();
+    // to check if there is "ELSE"
+    if (*it=="else")
+    {
+        match(it,"else");
+        stmtSequnce();
+    }
+    match(it,"end");
+}
+// fn No 6
+void MainWindow::assignStmt(QVector<QString> ::iterator pointerToCurrentToken){
+    match(pointerToCurrentToken,"identefier");
+    match(it,"assignment operator");
+    exp();
+}
+// fn No 8
+void MainWindow::writeStmt(QVector<QString> ::iterator pointerToCurrentToken){
+    match(it,"write");
+    exp();
+}
+// still empty
+void MainWindow::exp (){
 
+}
+void MainWindow::stmtSequnce(){
+
+}
+//fn No 12
+void MainWindow::addOp(QVector<QString> ::iterator pointerToCurrentToken){
+
+
+}
+// fn No 14
+void MainWindow::mulOp(QVector<QString> ::iterator pointerToCurrentToken){
+     //match(currentToken,expectedToken);
+}
+
+// fn No 16
+void  MainWindow::match (QVector<QString> ::iterator pointerToCurrentToken,QString expectedToken){
+    if (*pointerToCurrentToken == expectedToken)
+    {
+        // 23ml 7aga
+        index++;
+        it++;
+    }
+
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Error ya s7by");
+        msgBox.exec();
+    }
+}
+/*
 // function No 4
 void MainWindow::ifStmt(QString currentToken){
     match(currentToken, "if");
@@ -257,33 +316,6 @@ void MainWindow::ifStmt(QString currentToken){
     }
     match(parserInput[index],"end");
 } 
-// fn No 6
-void MainWindow::assignStmt(QString currentToken){
-    match(currentToken,"identefier");
-    match(parserInput[index],"assignment operator");
-    exp();
-}
-// fn No 8
-void MainWindow::writeStmt(QString currentToken){
-    match(currentToken,"write");
-    exp();
-}
-// still empty
-void MainWindow::exp (){
-
-}
-void MainWindow::stmtSequnce(){
-
-}
-//fn No 12
-void MainWindow::addOp(QString currentToken){
-
-
-}
-// fn No 14
-void MainWindow::mulOp(QString currentToken){
-     //match(currentToken,expectedToken);
-}
 // fn No 16
 void  MainWindow::match (QString currentToken,QString expectedToken){
     if (currentToken == expectedToken)
@@ -299,7 +331,7 @@ void  MainWindow::match (QString currentToken,QString expectedToken){
         msgBox.exec();       
     }
 }
-
+*/
 void MainWindow::on_textEdit_destroyed()
 {
  //   trial = "hi";

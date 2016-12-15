@@ -15,14 +15,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void ifStmt(QString currentToken);
-    void assignStmt(QString currentToken);
-    void writeStmt(QString currentToken);
+    void ifStmt(QVector<QString> ::iterator pointerToCurrentToken);
+    void assignStmt(QVector<QString> ::iterator pointerToCurrentToken);
+    void writeStmt(QVector<QString> ::iterator pointerToCurrentToken);
     void exp ();
     void stmtSequnce();
-    void addOp(QString currentToken);
-    void mulOp(QString currentToken);
-    void  match (QString currentToken,QString expectedToken);
+    void addOp(QVector<QString> ::iterator pointerToCurrentToken);
+    void mulOp(QVector<QString> ::iterator pointerToCurrentToken);
+    void  match (QVector<QString> ::iterator pointerToCurrentToken,QString expectedToken);
 private slots:
     void on_pushButton_clicked();
 
