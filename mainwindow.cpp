@@ -280,15 +280,18 @@ void MainWindow::stmt()
 // function No 4
 void MainWindow::ifStmt()
 {
+    match("if");
+    exp();
+    match("then");
+    stmtSequnce();
+    if(*it=="else")
+    { match("else"); stmtSequnce();}
+    match("end");
+
 }
 
 //fn No.5
 void MainWindow::repeatStmt()
-{
-}
-
-//fn No.7
-void MainWindow::readStmt()
 {
 }
 
@@ -298,6 +301,11 @@ void MainWindow::assignStmt(){
     match("assignment operator");
     exp();
 }
+//fn No.7
+void MainWindow::readStmt()
+{
+}
+
 // fn No 8
 void MainWindow::writeStmt(){
     match("write");
