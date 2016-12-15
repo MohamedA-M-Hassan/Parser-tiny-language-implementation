@@ -87,7 +87,7 @@ void MainWindow::on_pushButton_clicked()
                      myCharContainer=myCharContainer+text[i];
                      s=inID;
                  }
-                 //  numbers
+                 //  Numbers
                  else if (text[i].isDigit())
                  {
                     myCharContainer=myCharContainer+text[i];
@@ -267,7 +267,7 @@ void MainWindow::stmt()
     {
        repeatStmt();
     }
-    else if (*it =="assign")
+    else if (*it =="identefier")
     {
         assignStmt();
     }
@@ -278,6 +278,12 @@ void MainWindow::stmt()
     else if (*it == "write")
     {
         writeStmt();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.exec();
     }
 
 }
@@ -314,7 +320,7 @@ void MainWindow::assignStmt(){
 void MainWindow::readStmt()
 {
     match("read");
-    match("identifier");
+    match("identefier");
 }
 
 // fn No 8
@@ -338,7 +344,7 @@ void MainWindow::exp()
 void MainWindow::simpleExp()
 {
     term();
-    while(*it=="+" || *it=="-")
+    while(*it=="PLUS" || *it=="MINUS")
     {
         match(*it);
         term();
@@ -350,7 +356,7 @@ void MainWindow::simpleExp()
 void MainWindow::term()
 {
     factor();
-    while(*it=="*" || *it=="/")
+    while(*it=="MULTIPLE" || *it=="DIVIDE")
     {
         match(*it);
         factor();
@@ -366,15 +372,20 @@ void MainWindow::factor()
         exp();
         match(")");
     }
-    else if(*it=="identifier")
+    else if(*it=="identefier")
     {
-        match("identifier");
+        match("identefier");
     }
-    else if(*it=="number")
+    else if(*it=="Number")
     {
-        match("number");
+        match("Number");
     }
-
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.exec();
+    }
 }
 
 // fn No 16
@@ -383,6 +394,7 @@ void  MainWindow::match (QString expectedToken)
     if (*it == expectedToken)
     {
         it++;
+
     }
       
     else
