@@ -20,9 +20,9 @@ public:
 
     void exp ();
     void program();
-    void MainWindow::simpleExp();
-    void MainWindow::term();
-    void MainWindow::factor();
+    void simpleExp();
+    void term();
+    void factor();
     void stmtSequnce();
     void ifStmt();
     void stmt();

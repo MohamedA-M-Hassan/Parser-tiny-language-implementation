@@ -234,7 +234,8 @@ void MainWindow::on_pushButton_clicked()
     /////////////////////////////////////////////////////////////////////
     // parser part
     it = parserInput.begin();
-    program();
+    //program();
+    ifStmt();
 
 }
 
@@ -286,12 +287,13 @@ void MainWindow::stmt()
 void MainWindow::ifStmt()
 {
     match("if");
-    exp();
+    match("end");
+    /*exp();
     match("then");
     stmtSequnce();
     if(*it=="else")
     { match("else"); stmtSequnce();}
-    match("end");
+    match("end");*/
 
 }
 
@@ -382,7 +384,8 @@ void  MainWindow::match (QString expectedToken)
 {
     if (*it == expectedToken)
     {
-        it++;
+        if (it!=parserInput.end())
+        {it++;}
     }
       
     else
