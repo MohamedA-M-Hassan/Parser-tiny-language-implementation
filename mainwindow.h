@@ -15,7 +15,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
     void ifStmt();
+
     void exp ();
     void program();
     void stmtSequnce();
@@ -30,7 +32,10 @@ public:
 
     void mulop(QString currentToken,QString expectedToken);
     void  match (QString expectedToken);
-private slots:
+    void addOp(QVector<QString> ::iterator pointerToCurrentToken);
+    void mulOp(QVector<QString> ::iterator pointerToCurrentToken);
+  
+  private slots:
     void on_pushButton_clicked();
 
     void on_textEdit_destroyed();

@@ -143,7 +143,7 @@ void MainWindow::on_pushButton_clicked()
                    if (text[i]=='=')
                    {
                        myCharContainer= myCharContainer+(text[i]);
-                        type="Assignment operator";
+                        type="assignment operator";
 
                    }
                    else{
@@ -281,26 +281,25 @@ void MainWindow::stmt()
 void MainWindow::ifStmt()
 {
     /*match(currentToken, "if");
-    exp ();
-    match(parserInput[index],"then");
-    stmtSequnce();
-    // to check if there is "ELSE"
-    if (parserInput[index]=="else")
-    {
-        match(parserInput[index],"else");
-        stmtSequnce();
-    }
-    match(parserInput[index],"end");*/
+    index=0;
+    it=parserInput.begin();
+    for(it; it!=  parserInput.end(); ++it) {
+            if (*it == "if")
+            {
+                ifStmt(it);
+            }
+    }*/
 }
+
 //fn No.5
 void MainWindow::repeatStmt()
 {
 }
 
 //fn No.6
-void MainWindow::assignStmt()
+/*void MainWindow::assignStmt()
 {
-}
+}*/
 
 //fn No.7
 void MainWindow::readStmt()
@@ -308,8 +307,19 @@ void MainWindow::readStmt()
 }
 
 //fn No.8
-void MainWindow::writeStmt()
+/*void MainWindow::writeStmt()
 {
+}*/
+// fn No 6
+void MainWindow::assignStmt(QVector<QString> ::iterator pointerToCurrentToken){
+    match(pointerToCurrentToken,"identefier");
+    match(it,"assignment operator");
+    exp();
+}
+// fn No 8
+void MainWindow::writeStmt(QVector<QString> ::iterator pointerToCurrentToken){
+    match(it,"write");
+    exp();
 }
 // still empty
 void MainWindow::exp (){
@@ -321,6 +331,17 @@ void MainWindow::exp (){
 void MainWindow::mulop(QString currentToken,QString expectedToken){
      match(expectedToken);
 }*/
+
+
+//fn No 12
+void MainWindow::addOp(QVector<QString> ::iterator pointerToCurrentToken){
+
+
+}
+// fn No 14
+void MainWindow::mulOp(QVector<QString> ::iterator pointerToCurrentToken){
+     //match(currentToken,expectedToken);
+}
 
 // fn No 16
 void  MainWindow::match (QString expectedToken)
