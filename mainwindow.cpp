@@ -233,19 +233,54 @@ void MainWindow::on_pushButton_clicked()
 
     /////////////////////////////////////////////////////////////////////
     // parser part
-    index=0;
-    for(index; index<  parserInput.size(); index++) {
-            if (parserInput[index] == "if")
-            {
-                ifStmt(parserInput[index]);
-            }
-    }
+    it = parserInput.begin();
+    program();
+
 }
 
+// fn No.1
+void MainWindow::program()
+{
+
+    stmtSequnce();
+}
+
+// fn No.2
+void MainWindow::stmtSequnce()
+{
+    stmt();
+}
+
+//fn No.3
+void MainWindow::stmt()
+{
+    if(*it == "if")
+    {
+        ifStmt();
+    }
+    else if(*it == "repeat")
+    {
+       repeatStmt();
+    }
+    else if (*it =="assign")
+    {
+        assignStmt();
+    }
+    else if(*it == "read")
+    {
+       readStmt();
+    }
+    else if (*it == "write")
+    {
+        writeStmt();
+    }
+
+}
 
 // function No 4
-void MainWindow::ifStmt(QString currentToken){
-    match(currentToken, "if");
+void MainWindow::ifStmt()
+{
+    /*match(currentToken, "if");
     exp ();
     match(parserInput[index],"then");
     stmtSequnce();
@@ -255,25 +290,44 @@ void MainWindow::ifStmt(QString currentToken){
         match(parserInput[index],"else");
         stmtSequnce();
     }
-    match(parserInput[index],"end");
-} 
+    match(parserInput[index],"end");*/
+}
+//fn No.5
+void MainWindow::repeatStmt()
+{
+}
+
+//fn No.6
+void MainWindow::assignStmt()
+{
+}
+
+//fn No.7
+void MainWindow::readStmt()
+{
+}
+
+//fn No.8
+void MainWindow::writeStmt()
+{
+}
 // still empty
 void MainWindow::exp (){
 
 }
-void MainWindow::stmtSequnce(){
 
-}
 // fn No 14
+/*
 void MainWindow::mulop(QString currentToken,QString expectedToken){
-     match(currentToken,expectedToken);
-}
+     match(expectedToken);
+}*/
+
 // fn No 16
-void  MainWindow::match (QString currentToken,QString expectedToken){
-    if (currentToken == expectedToken)
+void  MainWindow::match (QString expectedToken)
+{
+    if (*it == expectedToken)
     {
-        // 23ml 7aga
-        index++;
+        it++;
     }
       
     else
