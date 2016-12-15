@@ -234,8 +234,8 @@ void MainWindow::on_pushButton_clicked()
     /////////////////////////////////////////////////////////////////////
     // parser part
     it = parserInput.begin();
-    //program();
-    ifStmt();
+    program();
+
 
 }
 
@@ -285,6 +285,7 @@ void MainWindow::stmt()
         QMessageBox msgBox;
         msgBox.setText("Error");
         msgBox.exec();
+        exit(0);
     }
 
 }
@@ -293,13 +294,13 @@ void MainWindow::stmt()
 void MainWindow::ifStmt()
 {
     match("if");
-    match("end");
-    /*exp();
+    //match("end");
+    exp();
     match("then");
     stmtSequnce();
     if(*it=="else")
     { match("else"); stmtSequnce();}
-    match("end");*/
+    match("end");
 
 }
 
@@ -334,7 +335,7 @@ void MainWindow::writeStmt(){
 void MainWindow::exp()
 {
     simpleExp();
-    while(*it == "<" || *it == "=" )
+    while(*it == "SmallerThan" || *it == "Equal" )
     {
         match(*it);
         simpleExp();
@@ -346,7 +347,7 @@ void MainWindow::exp()
 void MainWindow::simpleExp()
 {
     term();
-    while(*it=="PLUS" || *it=="MINUS")
+    while(*it=="Plus" || *it=="Minus")
     {
         match(*it);
         term();
@@ -358,7 +359,7 @@ void MainWindow::simpleExp()
 void MainWindow::term()
 {
     factor();
-    while(*it=="MULTIPLE" || *it=="DIVIDE")
+    while(*it=="Multiple Operator" || *it=="Divide")
     {
         match(*it);
         factor();
@@ -387,6 +388,7 @@ void MainWindow::factor()
         QMessageBox msgBox;
         msgBox.setText("Error");
         msgBox.exec();
+        exit(0);
     }
 }
 
@@ -395,16 +397,18 @@ void  MainWindow::match (QString expectedToken)
 {
     if (*it == expectedToken)
     {
-
-        if (it!=parserInput.end())
-        {it++;}
-
+        it++;
+        if(it == parserInput.end())
+        {
+            it--;
+        }
     }
     else
     {  
         QMessageBox msgBox;
         msgBox.setText("Error ya s7by");
-        msgBox.exec();       
+        msgBox.exec();
+        exit(0);
     }
 }
 
