@@ -249,6 +249,11 @@ void MainWindow::program()
 void MainWindow::stmtSequnce()
 {
     stmt();
+    if (*it=="SemiColon")
+    {
+        match("SemiColon");
+        stmt();
+    }
 }
 
 //fn No.3
