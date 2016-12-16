@@ -95,17 +95,17 @@ void MainWindow::on_pushButton_clicked()
                  }
                  else if (text[i]=='+') {
                      answer.push_back({"+","Plus"});
-                     parserInput.push_back("PLUS");
+                     parserInput.push_back("Plus");
                      //outputToken["+"]="PLUS";
                  }
                  else if (text[i]=='-') {
                      answer.push_back({"-","Minus"});
-                     parserInput.push_back("MINUS");
+                     parserInput.push_back("Minus");
                      //outputToken["-"]="MINUS";
                  }
                  else if (text[i]=='/') {
                     answer.push_back({"/","Divide"});
-                    parserInput.push_back("DIVIDE");
+                    parserInput.push_back("Divide");
                     // outputToken["/"]="DIVIDE";
                  }
                  else if (text[i]=='*') {
@@ -258,12 +258,14 @@ TreeNode *MainWindow::program()
 // fn No.2
 TreeNode *MainWindow::stmtSequnce()
 {
-    stmt();
+    TreeNode *temp = new TreeNode("stmt_sequence");
+    temp->setLeft(stmt());
     if (*it=="SemiColon")
     {
-    match("SemiColon");
-    stmt();
+        match("SemiColon");
+        temp->setRight(stmt());
     }
+    return temp;
 }
 
 //fn No.3
@@ -324,9 +326,11 @@ TreeNode *MainWindow::repeatStmt()
 
 // fn No 6
 TreeNode *MainWindow::assignStmt(){
+    TreeNode *temp = new TreeNode("assign");
     match("identefier");
     match("assignment operator");
-    exp();
+    temp->setLeft(exp());
+    return temp;
 }
 //fn No.7
 TreeNode *MainWindow::readStmt()
@@ -337,8 +341,10 @@ TreeNode *MainWindow::readStmt()
 
 // fn No 8
 TreeNode *MainWindow::writeStmt(){
+    TreeNode *temp=new TreeNode("write");
     match("write");
-    exp();
+    temp->setLeft(exp());
+    return temp;
 }
 // fn No.9
 TreeNode *MainWindow::exp()
@@ -354,13 +360,16 @@ TreeNode *MainWindow::exp()
 //fn No.10
 TreeNode *MainWindow::simpleExp()
 {
-    term();
+    TreeNode *temp=term();
     while(*it=="Plus" || *it=="Minus")
     {
+        TreeNode *newNode =new TreeNode (*it);
         match(*it);
-        term();
+        newNode->addChildren(temp);
+        newNode->addChildren(term());
+        temp=newNode;
     }
-
+    return temp;
 }
 
 //fn No.11
@@ -377,20 +386,25 @@ TreeNode *MainWindow::term()
 //fn No.12
 TreeNode *MainWindow::factor()
 {
-
+    TreeNode *temp=new TreeNode();
     if(*it=="(")
     {
         match("(");
-        exp();
+        temp = exp();
         match(")");
+        return temp;
     }
     else if(*it=="identefier")
     {
+        temp->setData(*it);
         match("identefier");
+        return temp;
     }
     else if(*it=="Number")
     {
+        temp->setData("Number");
         match("Number");
+        return temp;
     }
     else
     {
@@ -398,7 +412,6 @@ TreeNode *MainWindow::factor()
         msgBox.setText("Error");
         msgBox.exec();
         exit(0);
-
     }
 
 }
