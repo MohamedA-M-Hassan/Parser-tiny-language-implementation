@@ -2,6 +2,6 @@
 
 Tree::Tree()
 {
-
+    root = NULL;
 }
 

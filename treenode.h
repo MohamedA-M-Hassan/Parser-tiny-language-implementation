@@ -6,27 +6,19 @@ class TreeNode
 {
 public:
     TreeNode();
-    /*void find(QString, TreeNode **, TreeNode **);
-    void insert(TreeNode *tree, TreeNode *newnode);
-    void del(QString);
-    void case_a(TreeNode *,TreeNode *);
-    void case_b(TreeNode *,TreeNode *);
-    void case_c(TreeNode *,TreeNode *);
-    void preorder(TreeNode *);
-    void inorder(TreeNode *);
-    void postorder(TreeNode *);
-    void display(TreeNode *, QString);
-    */
+    TreeNode(QString d);
     void setData (QString d);
     QString getData();
     void setRight(TreeNode * r);
     TreeNode *getRight();
     void setCenter(TreeNode * c);
     TreeNode *getCenter();
-    void setLeftt(TreeNode * l);
+    void setLeft(TreeNode * l);
     TreeNode *getLeftt();
     void setLineNo (int d);
     int getlineNo();
+    void setRoot(TreeNode * r);
+    TreeNode *getRoot();
 
     friend class Tree;
 private:
@@ -35,6 +27,7 @@ private:
     TreeNode *right;
     TreeNode *center;
     int lineNo;
+    TreeNode *root;
 };
 
 #endif // TREENODE_H

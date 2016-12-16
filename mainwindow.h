@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 #include <QString>
 #include <QMainWindow>
-
+#include "treenode.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,21 +15,18 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
-
-
     void exp ();
-    void program();
-    void simpleExp();
-    void term();
-    void factor();
-    void stmtSequnce();
-    void ifStmt();
-    void stmt();
-    void readStmt();
-    void repeatStmt();
-    void assignStmt();
-    void writeStmt();
+    TreeNode *program();
+    TreeNode *simpleExp();
+    TreeNode *term();
+    TreeNode *factor();
+    TreeNode *stmtSequnce();
+    TreeNode *ifStmt();
+    TreeNode *stmt();
+    TreeNode *readStmt();
+    TreeNode *repeatStmt();
+    TreeNode *assignStmt();
+    TreeNode *writeStmt();
     void match (QString expectedToken);
   private slots:
     void on_pushButton_clicked();
