@@ -14,7 +14,7 @@ public:
     void setCenter(TreeNode * c);
     TreeNode *getCenter();
     void setLeft(TreeNode * l);
-    TreeNode *getLeftt();
+    TreeNode *getLeft();
     void setLineNo (int d);
     int getlineNo();
     void setRoot(TreeNode * r);

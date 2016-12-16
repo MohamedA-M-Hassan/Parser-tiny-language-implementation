@@ -245,14 +245,18 @@ void MainWindow::on_pushButton_clicked()
 }
 
 // fn No.1
-void MainWindow::program()
+TreeNode *MainWindow::program()
 {
-    while(itFlag)
-    {stmtSequnce();}
+    //while(itFlag)
+    //{
+        TreeNode *t =new TreeNode;
+        stmtSequnce();
+
+    //}
 }
 
 // fn No.2
-void MainWindow::stmtSequnce()
+TreeNode *MainWindow::stmtSequnce()
 {
     stmt();
     if (*it=="SemiColon")
@@ -263,7 +267,7 @@ void MainWindow::stmtSequnce()
 }
 
 //fn No.3
-void MainWindow::stmt()
+TreeNode *MainWindow::stmt()
 {
     if(*it == "if")
     {
@@ -299,18 +303,18 @@ TreeNode *MainWindow::ifStmt()
 {
     TreeNode *temp = new TreeNode("if");
     match("if");
-    temp.setLeft(exp());
+    temp->setLeft(exp());
     match("then");
-    temp.setCenter(stmtSequnce());
+    temp->setCenter(stmtSequnce());
     if(*it=="else")
     { match("else");
-      temp.setRight(stmtSequnce());}
+      temp->setRight(stmtSequnce());}
     match("end");
     return temp;
 }
 
 //fn No.5
-void MainWindow::repeatStmt()
+TreeNode *MainWindow::repeatStmt()
 {
     match("repeat");
     stmtSequnce();
@@ -319,25 +323,25 @@ void MainWindow::repeatStmt()
 }
 
 // fn No 6
-void MainWindow::assignStmt(){
+TreeNode *MainWindow::assignStmt(){
     match("identefier");
     match("assignment operator");
     exp();
 }
 //fn No.7
-void MainWindow::readStmt()
+TreeNode *MainWindow::readStmt()
 {
     match("read");
     match("identefier");
 }
 
 // fn No 8
-void MainWindow::writeStmt(){
+TreeNode *MainWindow::writeStmt(){
     match("write");
     exp();
 }
 // fn No.9
-void MainWindow::exp()
+TreeNode *MainWindow::exp()
 {
     simpleExp();
     while(*it == "SmallerThan" || *it == "Equal" )
@@ -348,7 +352,7 @@ void MainWindow::exp()
 }
 
 //fn No.10
-void MainWindow::simpleExp()
+TreeNode *MainWindow::simpleExp()
 {
     term();
     while(*it=="Plus" || *it=="Minus")
@@ -360,7 +364,7 @@ void MainWindow::simpleExp()
 }
 
 //fn No.11
-void MainWindow::term()
+TreeNode *MainWindow::term()
 {
     factor();
     while(*it=="Multiple Operator" || *it=="Divide")
@@ -371,7 +375,7 @@ void MainWindow::term()
 }
 
 //fn No.12
-void MainWindow::factor()
+TreeNode *MainWindow::factor()
 {
 
     if(*it=="(")
