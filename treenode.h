@@ -2,19 +2,11 @@
 #define TREENODE_H
 #include <QString>
 
-struct TreeNode
-{
-    QString data;
-    struct TreeNode *left;
-    struct TreeNode *right;
-    struct TreeNode *center;
-
-};
-class Tree
+class TreeNode
 {
 public:
     Tree();
-    void find(QString, TreeNode **, TreeNode **);
+    /*void find(QString, TreeNode **, TreeNode **);
     void insert(TreeNode *tree, TreeNode *newnode);
     void del(QString);
     void case_a(TreeNode *,TreeNode *);
@@ -24,11 +16,20 @@ public:
     void inorder(TreeNode *);
     void postorder(TreeNode *);
     void display(TreeNode *, QString);
-
-
-
+    */
+    void setData (QString d){data=d;}
+    QString getDta()    {return data;}
+    void setRight(TreeNode * r) {right=r;}
+    TreeNode *getRight(){return right;}
+    void setCenter(TreeNode * c) {center=c;}
+    TreeNode *getCenter(){return center;}
+    void setLeftt(TreeNode * l) {left=l;}
+    TreeNode *getLeftt(){return left;}
 private:
-    TreeNode * root;
+    QString data;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode *center;
 
 
 };

@@ -50,6 +50,7 @@ private:
 
     QVector<QString> ::iterator it;
     QVector <QString>parserInput;
+    bool itFlag;
 };
 
 #endif // MAINWINDOW_H
