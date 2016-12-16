@@ -232,7 +232,7 @@ void MainWindow::on_pushButton_clicked()
     }
 
     /////////////////////////////////////////////////////////////////////
-    // parser part
+    // parer part
     it = parserInput.begin();
     itFlag=true;
     if(parserInput.size()==1)
@@ -245,14 +245,13 @@ void MainWindow::on_pushButton_clicked()
 }
 
 // fn No.1
-TreeNode *MainWindow::program()
+void *MainWindow::program()
 {
-    //while(itFlag)
-    //{
-        TreeNode *t =new TreeNode;
-        stmtSequnce();
+    while(itFlag)
+    {
+      stmtSequnce();
 
-    //}
+    }
 }
 
 // fn No.2
@@ -269,25 +268,26 @@ TreeNode *MainWindow::stmtSequnce()
 //fn No.3
 TreeNode *MainWindow::stmt()
 {
+    TreeNode *stmt= new TreeNode("stmt");
     if(*it == "if")
     {
-        ifStmt();
+        stmt->setRight(ifStmt());
     }
     else if(*it == "repeat")
     {
-       repeatStmt();
+       stmt->setRight(repeatStmt());
     }
     else if (*it =="identefier")
     {
-        assignStmt();
+        stmt->setRight(assignStmt());
     }
     else if(*it == "read")
     {
-       readStmt();
+       stmt->setRight(readStmt());
     }
     else if (*it == "write")
     {
-        writeStmt();
+       stmt->setRight(writeStmt());
     }
     else
     {
@@ -316,10 +316,12 @@ TreeNode *MainWindow::ifStmt()
 //fn No.5
 TreeNode *MainWindow::repeatStmt()
 {
+    TreeNode *repeat = new TreeNode("repeat");
     match("repeat");
-    stmtSequnce();
+    repeat->setLeft(stmtSequnce());
     match("until");
-    exp();
+    repeat->setRight(exp());
+    return repeat;
 }
 
 // fn No 6
@@ -331,8 +333,10 @@ TreeNode *MainWindow::assignStmt(){
 //fn No.7
 TreeNode *MainWindow::readStmt()
 {
+    TreeNode *read = new TreeNode("read");
     match("read");
     match("identefier");
+    return read;
 }
 
 // fn No 8
@@ -343,14 +347,17 @@ TreeNode *MainWindow::writeStmt(){
 // fn No.9
 TreeNode *MainWindow::exp()
 {
-    simpleExp();
+    TreeNode *exp = new TreeNode();
+    exp->setLeft(simpleExp());
     while(*it == "SmallerThan" || *it == "Equal" )
     {
+        exp->setData(*it);
         match(*it);
-        simpleExp();
+        exp->setRight(simpleExp());
     }
-}
 
+    return exp;
+}
 //fn No.10
 TreeNode *MainWindow::simpleExp()
 {
@@ -366,12 +373,15 @@ TreeNode *MainWindow::simpleExp()
 //fn No.11
 TreeNode *MainWindow::term()
 {
-    factor();
+    TreeNode *term = new TreeNode();
+    term->setLeft(factor());
     while(*it=="Multiple Operator" || *it=="Divide")
     {
+        term->setData(*it);
         match(*it);
-        factor();
+        term->setRight(factor());
     }
+    return term;
 }
 
 //fn No.12
