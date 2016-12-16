@@ -1,58 +1,16 @@
 #include "treenode.h"
 
-Tree::Tree()
-{
-    root = NULL;
-}
-
-/*
- * Inserting Element into the Tree
-*/
-void Tree::insert(TreeNode *tree, TreeNode *newnode)
-{
-    if (root == NULL)
-    {
-        root = new TreeNode;
-        root->data = newnode->data;
-        root->left = NULL;
-        root->right = NULL;
-        //cout<<"Root Node is Added"<<endl;
-        return;
-    }
-    if (tree->data == newnode->data)
-    {
-        //cout<<"Element already in the tree"<<endl;
-        return;
-    }
-    if (tree->data > newnode->data)
-    {
-        if (tree->left != NULL)
-        {
-            insert(tree->left, newnode);
-    }
-    else
-    {
-            tree->left = newnode;
-            (tree->left)->left = NULL;
-            (tree->left)->right = NULL;
-            //cout<<"Node Added To Left"<<endl;
-            return;
-        }
-    }
-    else
-    {
-        if (tree->right != NULL)
-        {
-            insert(tree->right, newnode);
-        }
-        else
-        {
-            tree->right = newnode;
-            (tree->right)->left = NULL;
-            (tree->right)->right = NULL;
-            //cout<<"Node Added To Right"<<endl;
-            return;
-        }
-    }
-}
-
+TreeNode::TreeNode(){root=NULL;left=NULL;right=NULL;center=NULL;}
+TreeNode::TreeNode(QString d){root->data=d;left=NULL;right=NULL;center=NULL;}
+void TreeNode::setData (QString d){data=d;}
+QString TreeNode::getData()    {return data;}
+void TreeNode::setRight(TreeNode * r) {right=r;}
+TreeNode *TreeNode::getRight(){return right;}
+void TreeNode::setCenter(TreeNode * c) {center=c;}
+TreeNode *TreeNode::getCenter(){return center;}
+void TreeNode::setLeft(TreeNode * l) {left=l;}
+TreeNode *TreeNode::getLeft(){return left;}
+void TreeNode::setLineNo (int d){lineNo=d;}
+int TreeNode::getlineNo()    {return line;}
+void TreeNode::setRoot(TreeNode * r){root =r;}
+TreeNode *TreeNode::getRoot(){return root;}

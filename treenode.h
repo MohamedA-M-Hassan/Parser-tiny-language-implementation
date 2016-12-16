@@ -2,35 +2,32 @@
 #define TREENODE_H
 #include <QString>
 
-struct TreeNode
-{
-    QString data;
-    struct TreeNode *left;
-    struct TreeNode *right;
-    struct TreeNode *center;
-
-};
-class Tree
+class TreeNode
 {
 public:
-    Tree();
-    void find(QString, TreeNode **, TreeNode **);
-    void insert(TreeNode *tree, TreeNode *newnode);
-    void del(QString);
-    void case_a(TreeNode *,TreeNode *);
-    void case_b(TreeNode *,TreeNode *);
-    void case_c(TreeNode *,TreeNode *);
-    void preorder(TreeNode *);
-    void inorder(TreeNode *);
-    void postorder(TreeNode *);
-    void display(TreeNode *, QString);
+    TreeNode();
+    TreeNode(QString d);
+    void setData (QString d);
+    QString getData();
+    void setRight(TreeNode * r);
+    TreeNode *getRight();
+    void setCenter(TreeNode * c);
+    TreeNode *getCenter();
+    void setLeft(TreeNode * l);
+    TreeNode *getLeft();
+    void setLineNo (int d);
+    int getlineNo();
+    void setRoot(TreeNode * r);
+    TreeNode *getRoot();
 
-
-
+    friend class Tree;
 private:
-    TreeNode * root;
-
-
+    QString data;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode *center;
+    int lineNo;
+    TreeNode *root;
 };
 
 #endif // TREENODE_H

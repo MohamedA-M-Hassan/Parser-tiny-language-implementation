@@ -115,7 +115,7 @@ void MainWindow::on_pushButton_clicked()
                  }
                  else if (text[i]==';') {
                     answer.push_back({";","SemiColon"});
-                    parserInput.push_back("SEMIColon");
+                    parserInput.push_back("SemiColon");
                     //outputToken[";"]="SEMI";
                  }
                  else if ( text[i]== '.'){
@@ -234,31 +234,40 @@ void MainWindow::on_pushButton_clicked()
     /////////////////////////////////////////////////////////////////////
     // parser part
     it = parserInput.begin();
-    program();
-
-
+    itFlag=true;
+    if(parserInput.size()==1)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("syntax error");
+        msgBox.exec();
+    }
+    else program();
 }
 
 // fn No.1
-void MainWindow::program()
+TreeNode *MainWindow::program()
 {
+    //while(itFlag)
+    //{
+        TreeNode *t =new TreeNode;
+        stmtSequnce();
 
-    stmtSequnce();
+    //}
 }
 
 // fn No.2
-void MainWindow::stmtSequnce()
+TreeNode *MainWindow::stmtSequnce()
 {
     stmt();
     if (*it=="SemiColon")
     {
-        match("SemiColon");
-        stmt();
+    match("SemiColon");
+    stmt();
     }
 }
 
 //fn No.3
-void MainWindow::stmt()
+TreeNode *MainWindow::stmt()
 {
     if(*it == "if")
     {
@@ -287,25 +296,25 @@ void MainWindow::stmt()
         msgBox.exec();
         exit(0);
     }
-
 }
 
 // function No 4
-void MainWindow::ifStmt()
+TreeNode *MainWindow::ifStmt()
 {
+    TreeNode *temp = new TreeNode("if");
     match("if");
-    //match("end");
-    exp();
+    temp->setLeft(exp());
     match("then");
-    stmtSequnce();
+    temp->setCenter(stmtSequnce());
     if(*it=="else")
-    { match("else"); stmtSequnce();}
+    { match("else");
+      temp->setRight(stmtSequnce());}
     match("end");
-
+    return temp;
 }
 
 //fn No.5
-void MainWindow::repeatStmt()
+TreeNode *MainWindow::repeatStmt()
 {
     match("repeat");
     stmtSequnce();
@@ -314,25 +323,25 @@ void MainWindow::repeatStmt()
 }
 
 // fn No 6
-void MainWindow::assignStmt(){
+TreeNode *MainWindow::assignStmt(){
     match("identefier");
     match("assignment operator");
     exp();
 }
 //fn No.7
-void MainWindow::readStmt()
+TreeNode *MainWindow::readStmt()
 {
     match("read");
     match("identefier");
 }
 
 // fn No 8
-void MainWindow::writeStmt(){
+TreeNode *MainWindow::writeStmt(){
     match("write");
     exp();
 }
 // fn No.9
-void MainWindow::exp()
+TreeNode *MainWindow::exp()
 {
     simpleExp();
     while(*it == "SmallerThan" || *it == "Equal" )
@@ -340,11 +349,10 @@ void MainWindow::exp()
         match(*it);
         simpleExp();
     }
-
 }
 
 //fn No.10
-void MainWindow::simpleExp()
+TreeNode *MainWindow::simpleExp()
 {
     term();
     while(*it=="Plus" || *it=="Minus")
@@ -356,7 +364,7 @@ void MainWindow::simpleExp()
 }
 
 //fn No.11
-void MainWindow::term()
+TreeNode *MainWindow::term()
 {
     factor();
     while(*it=="Multiple Operator" || *it=="Divide")
@@ -367,8 +375,9 @@ void MainWindow::term()
 }
 
 //fn No.12
-void MainWindow::factor()
+TreeNode *MainWindow::factor()
 {
+
     if(*it=="(")
     {
         match("(");
@@ -389,29 +398,29 @@ void MainWindow::factor()
         msgBox.setText("Error");
         msgBox.exec();
         exit(0);
+
     }
+
 }
 
 // fn No 16
 void  MainWindow::match (QString expectedToken)
 {
-    if (*it == expectedToken)
-    {
-        it++;
-        if(it == parserInput.end())
+     if (*it == expectedToken)
         {
-            it--;
+            it++;
+            if (it== parserInput.end())
+                //it--;
+                itFlag=false;
         }
-    }
-    else
-    {  
-        QMessageBox msgBox;
-        msgBox.setText("Error ya s7by");
-        msgBox.exec();
-        exit(0);
-    }
+        else
+        {
+            QMessageBox msgBox;
+            msgBox.setText("Oh, there is an error\n ");
+            msgBox.exec();
+            exit(0);
+        }
 }
-
 void MainWindow::on_textEdit_destroyed()
 {
  //   trial = "hi";
@@ -456,9 +465,6 @@ void MainWindow::on_pushButton_5_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
         tr("Open File"), "/home", tr("code file (*.txt)"));// string has the file link
-
-
-
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly))
         QMessageBox::information(0,"info",file.errorString());
