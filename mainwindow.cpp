@@ -265,36 +265,33 @@ void MainWindow::stmtSequnce()
 //fn No.3
 void MainWindow::stmt()
 {
-        if(*it == "if")
-        {
-            ifStmt();
-        }
-        else if(*it == "repeat")
-        {
-           repeatStmt();
-        }
-        else if (*it =="identefier")
-        {
-            assignStmt();
-        }
-        else if(*it == "read")
-        {
-           readStmt();
-        }
-        else if (*it == "write")
-        {
-            writeStmt();
-        }
-        else
-        {
-            QMessageBox msgBox;
-            msgBox.setText("Error");
-            msgBox.exec();
-            parserInput.clear();
-            delete it;
-            itFlag=false;
-            return;
-        }
+    if(*it == "if")
+    {
+        ifStmt();
+    }
+    else if(*it == "repeat")
+    {
+       repeatStmt();
+    }
+    else if (*it =="identefier")
+    {
+        assignStmt();
+    }
+    else if(*it == "read")
+    {
+       readStmt();
+    }
+    else if (*it == "write")
+    {
+        writeStmt();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.exec();
+        exit(0);
+    }
 }
 
 // function No 4
@@ -307,7 +304,6 @@ void MainWindow::ifStmt()
         if(*it=="else")
         { match("else"); stmtSequnce();}
         match("end");
-
 }
 
 //fn No.5
@@ -340,21 +336,19 @@ void MainWindow::writeStmt(){
 // fn No.9
 void MainWindow::exp()
 {
-
+    simpleExp();
+    while(*it == "SmallerThan" || *it == "Equal" )
+    {
+        match(*it);
         simpleExp();
-        while(*it == "SmallerThan" || *it == "Equal" )
-        {
-            match(*it);
-            simpleExp();
-        }
-
+    }
 }
 
 //fn No.10
 void MainWindow::simpleExp()
 {
     term();
-    while(*it=="PLUS" || *it=="MINUS")
+    while(*it=="Plus" || *it=="Minus")
     {
         match(*it);
         term();
@@ -366,7 +360,7 @@ void MainWindow::simpleExp()
 void MainWindow::term()
 {
     factor();
-    while(*it=="MULTIPLE" || *it=="DIVIDE")
+    while(*it=="Multiple Operator" || *it=="Divide")
     {
         match(*it);
         factor();
@@ -396,10 +390,7 @@ void MainWindow::factor()
         QMessageBox msgBox;
         msgBox.setText("Error");
         msgBox.exec();
-        parserInput.clear();
-        delete it;
-        itFlag=false;
-        return;
+        exit(0);
 
     }
 
@@ -420,6 +411,7 @@ void  MainWindow::match (QString expectedToken)
             QMessageBox msgBox;
             msgBox.setText("Oh, there is an error\n ");
             msgBox.exec();
+            exit(0);
         }
 }
 void MainWindow::on_textEdit_destroyed()

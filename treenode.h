@@ -5,7 +5,7 @@
 class TreeNode
 {
 public:
-    Tree();
+    TreeNode();
     /*void find(QString, TreeNode **, TreeNode **);
     void insert(TreeNode *tree, TreeNode *newnode);
     void del(QString);
