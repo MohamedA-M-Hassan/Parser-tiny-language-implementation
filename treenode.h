@@ -17,21 +17,24 @@ public:
     void postorder(TreeNode *);
     void display(TreeNode *, QString);
     */
-    void setData (QString d){data=d;}
-    QString getDta()    {return data;}
-    void setRight(TreeNode * r) {right=r;}
-    TreeNode *getRight(){return right;}
-    void setCenter(TreeNode * c) {center=c;}
-    TreeNode *getCenter(){return center;}
-    void setLeftt(TreeNode * l) {left=l;}
-    TreeNode *getLeftt(){return left;}
+    void setData (QString d);
+    QString getData();
+    void setRight(TreeNode * r);
+    TreeNode *getRight();
+    void setCenter(TreeNode * c);
+    TreeNode *getCenter();
+    void setLeftt(TreeNode * l);
+    TreeNode *getLeftt();
+    void setLineNo (int d);
+    int getlineNo();
+
+    friend class Tree;
 private:
     QString data;
     TreeNode *left;
     TreeNode *right;
     TreeNode *center;
-
-
+    int lineNo;
 };
 
 #endif // TREENODE_H
