@@ -1,6 +1,7 @@
 #ifndef TREENODE_H
 #define TREENODE_H
 #include <QString>
+#include <QVector>
 
 class TreeNode
 {
@@ -19,13 +20,16 @@ public:
     int getlineNo();
     void setRoot(TreeNode * r);
     TreeNode *getRoot();
-
-    friend class Tree;
+    int getCountChildren();
+    QVector <TreeNode*> getChildren();
+    void addChildren(TreeNode *t);
 private:
     QString data;
     TreeNode *left;
     TreeNode *right;
-    TreeNode *center;
+    //TreeNode *center;
+    QVector <TreeNode*> children;
+    int countChildren;
     int lineNo;
     TreeNode *root;
 };

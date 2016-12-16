@@ -305,10 +305,10 @@ TreeNode *MainWindow::ifStmt()
     match("if");
     temp->setLeft(exp());
     match("then");
-    temp->setCenter(stmtSequnce());
+    temp->setRight(stmtSequnce());
     if(*it=="else")
     { match("else");
-      temp->setRight(stmtSequnce());}
+      temp->addChildren(stmtSequnce());}
     match("end");
     return temp;
 }
