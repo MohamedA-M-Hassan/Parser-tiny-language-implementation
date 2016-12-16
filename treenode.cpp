@@ -11,6 +11,6 @@ TreeNode *TreeNode::getCenter(){return center;}
 void TreeNode::setLeft(TreeNode * l) {left=l;}
 TreeNode *TreeNode::getLeft(){return left;}
 void TreeNode::setLineNo (int d){lineNo=d;}
-int TreeNode::getlineNo()    {return line;}
+int TreeNode::getlineNo()    {return lineNo;}
 void TreeNode::setRoot(TreeNode * r){root =r;}
 TreeNode *TreeNode::getRoot(){return root;}

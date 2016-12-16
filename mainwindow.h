@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void exp ();
+    TreeNode *exp ();
     TreeNode *program();
     TreeNode *simpleExp();
     TreeNode *term();
