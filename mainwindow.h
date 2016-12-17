@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QString>
+#include <QPair>
 #include <QMainWindow>
+#include <QVector>
 #include "treenode.h"
 #include <QGraphicsScene>
 #include <QGraphicsSimpleTextItem>
@@ -55,8 +57,10 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    QVector<QString> ::iterator it;
+    //QVector<QString> ::iterator it;
     QVector <QString>parserInput;
+    QVector<QPair <QString,QString> > ::iterator it;
+    QVector <QPair <QString,QString> > input;
     bool itFlag;
     TreeNode *rootOfTree=new TreeNode();
     QGraphicsScene *scene;

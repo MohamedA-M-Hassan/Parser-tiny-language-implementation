@@ -27,7 +27,13 @@ public:
     void addChildren(TreeNode *t);
     void setBehind(TreeNode * b);
     TreeNode *getBehind();
+<<<<<<< HEAD
     TreeNode* getChildrenByIndex(QVector <TreeNode*> childs , int index);
+=======
+    // constructor
+    TreeNode(QString k,QString v);
+
+>>>>>>> 73783431b0219c94db6dd138664c1e07031fa976
 private:
     QString dataKey;
     QString dataValue;
