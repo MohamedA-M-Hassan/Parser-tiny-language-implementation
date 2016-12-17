@@ -597,7 +597,7 @@ void MainWindow :: drawnode(TreeNode * v)
             else
             {
                 if(left){drawLeftNode(childs[i],x,y);}
-                if(right){drawRightNode(childs[i],x,y);}//x+=60;y+=60;}
+                if(right){drawRightNode(childs[i],x,y);}
 
             }
             left = !left;
