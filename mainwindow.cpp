@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     scene=new QGraphicsScene(this);
     // hide
     ui->tableWidget->hide();
-    ui->label_2->hide();
+   // ui->label_2->hide();
     ui->pushButton_2->hide();
     ui->pushButton_6->hide();
     ui->tableWidget->hide();
