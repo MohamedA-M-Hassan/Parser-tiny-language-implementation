@@ -245,7 +245,7 @@ void MainWindow::on_pushButton_clicked()
 }
 
 // fn No.1
-void *MainWindow::program()
+void MainWindow::program()
 {
     while(itFlag)
     {

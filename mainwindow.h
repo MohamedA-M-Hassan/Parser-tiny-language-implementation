@@ -16,7 +16,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     TreeNode *exp ();
-
     void program();
     TreeNode *simpleExp();
     TreeNode *term();
