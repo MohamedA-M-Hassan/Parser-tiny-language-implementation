@@ -243,7 +243,7 @@ void MainWindow::on_pushButton_clicked()
     }
     else program();*/
     ////////////// TRIAL
-    TreeNode *trial=term();
+    TreeNode *trial=simpleExp();
     int x=1;
     int z=2;
     int asd=3;
@@ -314,9 +314,9 @@ TreeNode *MainWindow::ifStmt()
 {
     TreeNode *temp = new TreeNode("if");
     match("if");
-    temp->setLeft(exp());
+    temp->addChildren(exp());
     match("then");
-    temp->setRight(stmtSequnce());
+    temp->addChildren(stmtSequnce());
     if(*it=="else")
     { match("else");
       temp->addChildren(stmtSequnce());}
@@ -329,9 +329,9 @@ TreeNode *MainWindow::repeatStmt()
 {
     TreeNode *repeat = new TreeNode("repeat");
     match("repeat");
-    repeat->setLeft(stmtSequnce());
+    repeat->addChildren(stmtSequnce());
     match("until");
-    repeat->setRight(exp());
+    repeat->addChildren(exp());
     return repeat;
 }
 
@@ -340,7 +340,7 @@ TreeNode *MainWindow::assignStmt(){
     TreeNode *temp = new TreeNode("assign");
     match("identefier");
     match("assignment operator");
-    temp->setLeft(exp());
+    temp->addChildren(exp());
     return temp;
 }
 //fn No.7
@@ -348,7 +348,7 @@ TreeNode *MainWindow::readStmt()
 {
     TreeNode *read = new TreeNode("read");
     match("read");
-    match("identefier");
+    match("identefier");read->setDataValue("identefier");
     return read;
 }
 
@@ -356,35 +356,33 @@ TreeNode *MainWindow::readStmt()
 TreeNode *MainWindow::writeStmt(){
     TreeNode *temp=new TreeNode("write");
     match("write");
-    temp->setLeft(exp());
+    temp->addChildren(exp());
     return temp;
 }
 // fn No.9
 TreeNode *MainWindow::exp()
 {
     TreeNode *exp = new TreeNode();
-    exp->setLeft(simpleExp());
+    exp->addChildren(simpleExp());
     while(*it == "SmallerThan" || *it == "Equal" )
     {
         exp->setDataKey(*it);
         match(*it);
-        exp->setRight(simpleExp());
+        exp->addChildren(simpleExp());
     }
-
     return exp;
 }
 
 //fn No.10
 TreeNode *MainWindow::simpleExp()
 {
-    TreeNode *temp=term();
+    TreeNode *temp= new TreeNode;
+    temp->addChildren(term());
     while(*it=="Plus" || *it=="Minus")
     {
-        TreeNode *newNode =new TreeNode (*it);
+        temp->setDataKey(*it);
         match(*it);
-        newNode->addChildren(temp);
-        newNode->addChildren(term());
-        temp=newNode;
+        temp->addChildren(term());
     }
     return temp;
 }
