@@ -266,39 +266,39 @@ void MainWindow::program()
 // fn No.2
 TreeNode *MainWindow::stmtSequnce()
 {
-    TreeNode *temp = new TreeNode("stmt_sequence");
-    temp->setLeft(stmt());
+    TreeNode *stmtSeq = new TreeNode();
+    stmtSeq=stmt();
     if (*it=="SemiColon")
     {
         match("SemiColon");
-        temp->setRight(stmt());
+        stmtSeq->setBehind(stmt());
     }
-    return temp;
+    return stmtSeq;
 }
 
 //fn No.3
 TreeNode *MainWindow::stmt()
 {
-    TreeNode *stmt= new TreeNode();
+    TreeNode *stmt= new TreeNode();//TreeNode("stmt")
     if(*it == "if")
     {
-        stmt=ifStmt();
+        stmt=ifStmt(); //stmt->setRight(ifStmt();
     }
     else if(*it == "repeat")
     {
-       stmt=repeatStmt();
+       stmt=repeatStmt(); // //stmt->setRight(repeatStmt();
     }
     else if (*it =="identefier")
     {
-        stmt=assignStmt();
+        stmt=assignStmt();//stmt->setRight(assignStmt();
     }
     else if(*it == "read")
     {
-       stmt=readStmt();
+       stmt=readStmt();//stmt->setRight(readStmt();
     }
     else if (*it == "write")
     {
-       stmt=writeStmt();
+        stmt=writeStmt();//stmt->setRight(writeStmt();
     }
     else
     {

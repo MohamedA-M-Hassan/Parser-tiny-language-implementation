@@ -25,15 +25,19 @@ public:
     int getCountChildren();
     QVector <TreeNode*> getChildren();
     void addChildren(TreeNode *t);
+    void setBehind(TreeNode * b);
+    TreeNode *getBehind();
+
 private:
     QString dataKey;
     QString dataValue;
-    TreeNode *left;
-    TreeNode *right;
+    //TreeNode *left;
+    //TreeNode *right;
     QVector <TreeNode*> children;
     int countChildren;
     int lineNo;
     TreeNode *root;
+    TreeNode *behind; // stmt behind stmt
 };
 
 #endif // TREENODE_H

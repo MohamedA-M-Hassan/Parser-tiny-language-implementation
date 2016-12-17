@@ -1,7 +1,7 @@
 #include "treenode.h"
 
-TreeNode::TreeNode(){root=NULL;left=NULL;right=NULL;countChildren=0;}
-TreeNode::TreeNode(QString d){this->dataKey=d;root=NULL;left=NULL;right=NULL;countChildren=0;}
+TreeNode::TreeNode(){root=NULL;left=NULL;right=NULL;countChildren=0;behind=NULL;}
+TreeNode::TreeNode(QString d){this->dataKey=d;root=NULL;left=NULL;right=NULL;countChildren=0;behind=NULL;}
 void TreeNode::setDataKey (QString d){dataKey=d;}
 QString TreeNode::getDataKey(){return dataKey;}
 void TreeNode::setDataValue (QString d){dataValue=d;}
@@ -17,3 +17,5 @@ TreeNode *TreeNode::getRoot(){return root;}
 int TreeNode::getCountChildren(){return countChildren;}
 void TreeNode::addChildren(TreeNode *t){children.push_back(t); countChildren++;}
 QVector <TreeNode*> TreeNode::getChildren(){return children;}
+void TreeNode::setBehind(TreeNode * b){behind =b;}
+TreeNode *TreeNode::getBehind(){return behind;}
