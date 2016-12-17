@@ -122,6 +122,12 @@
       <height>261</height>
      </rect>
     </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>OpenHandCursor</cursorShape>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
     <property name="rowCount">
      <number>0</number>
     </property>
@@ -204,7 +210,7 @@
      <x>0</x>
      <y>0</y>
      <width>1101</width>
-     <height>22</height>
+     <height>19</height>
     </rect>
    </property>
   </widget>
