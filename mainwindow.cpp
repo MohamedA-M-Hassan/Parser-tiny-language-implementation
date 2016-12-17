@@ -384,11 +384,14 @@ TreeNode *MainWindow::simpleExp()
 TreeNode *MainWindow::term()
 {
     TreeNode *term = new TreeNode();
-    term->addChildren(factor());
+    term=factor();
     while(*it=="Multiple" || *it=="Divide")
     {
-        term->setDataKey(*it);
+        TreeNode *temp = new TreeNode();
+        temp->setDataKey(*it);
+        temp->addChildren(term);
         match(*it);
+        term=temp;
         term->addChildren(factor());
     }
     return term;
@@ -410,16 +413,16 @@ TreeNode *MainWindow::factor()
     else if(*it=="identefier")
     {
         temp->setDataKey(*it);
-        temp->setDataValue(NULL);
-        temp->setRoot(NULL);
+        //temp->setDataValue(NULL);
+        //temp->setRoot(NULL);
         match("identefier");
         return temp;
     }
     else if(*it=="Number")
     {
         temp->setDataKey(*it);
-        temp->setDataValue(NULL);
-        temp->setRoot(NULL);
+        //temp->setDataValue(NULL);
+        //temp->setRoot(NULL);
         match("Number");
         return temp;
     }
