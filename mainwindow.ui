@@ -6,24 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>724</width>
-    <height>402</height>
+    <width>1079</width>
+    <height>723</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTextBrowser" name="textBrowser">
-    <property name="geometry">
-     <rect>
-      <x>380</x>
-      <y>50</y>
-      <width>301</width>
-      <height>211</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
@@ -173,8 +163,30 @@
     <column/>
     <column/>
    </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>370</y>
+      <width>391</width>
+      <height>261</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_6">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>310</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
    <zorder>textEdit</zorder>
-   <zorder>textBrowser</zorder>
    <zorder>pushButton_3</zorder>
    <zorder>pushButton_2</zorder>
    <zorder>layoutWidget</zorder>
@@ -182,13 +194,15 @@
    <zorder>layoutWidget</zorder>
    <zorder>tableWidget</zorder>
    <zorder>layoutWidget</zorder>
+   <zorder>graphicsView</zorder>
+   <zorder>pushButton_6</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>724</width>
+     <width>1079</width>
      <height>22</height>
     </rect>
    </property>

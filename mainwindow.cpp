@@ -12,6 +12,8 @@
 #include <QMap>
 #include <QQueue>
 
+
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -19,14 +21,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    scene=new QGraphicsScene(this);
     // hide
     ui->tableWidget->hide();
     ui->label_2->hide();
     ui->pushButton_2->hide();
-    ui->textBrowser->hide();
+
     ui->tableWidget->hide();
-   // ui->pushButton_6->hide();
-    //void ifStmt(QString currentToken);
+    ui->graphicsView->setScene(scene);
 }
 
 MainWindow::~MainWindow()
@@ -197,23 +199,6 @@ void MainWindow::on_pushButton_clicked()
           }
       }
 
-     /*   // to get the Reserved word and the Identefier
-      for(QVector<QString>::iterator vec = container.begin(); vec != container.end(); vec++) {
-          for (QMap<QString,QString>::iterator mp=token.begin();mp!=token.end(); mp++) {
-              if (vec ==mp.key() )
-              {
-                  outputToken[mp.key()]=mp.value();
-                  break;
-              }
-              else outputToken[*vec]="IDENTEFIER";
-           }
-      }*/
-    /* //to print in textBrowser not so good
-    ui->textBrowser->setText("Symbol       ||    TokenType");// added so when you repeat the use of the button just restart w mtkmlsh 3la el2dyym
-
-    for (QVector< pair <QString,QString> >::iterator it=answer.begin(); it != answer.end(); it++) {
-        ui->textBrowser->append(it->first + "       ||    " + it->second);
-    }*/
     // to print in a table
     ui->tableWidget->show();
     // ------------
@@ -466,7 +451,7 @@ void MainWindow::on_textEdit_destroyed()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-   close();
+  close();
 }
 
 
@@ -486,7 +471,7 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     ui->textEdit->clear();
-    ui->textBrowser->clear();
+
     ui->tableWidget->clear();
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->hide();
@@ -495,6 +480,18 @@ void MainWindow::on_pushButton_4_clicked()
     // parser part
     // as it is a glbal variable: to ensure every time i click, i restart it
     parserInput.clear();
+
+}
+void MainWindow :: drawnode(TreeNode * v,int x,int y)
+{
+    scene->addRect(x,y,80,50);
+
+    scene->addSimpleText(v->getDataKey())->setPos(x+10,y+10);
+
+    scene->addLine(x+40,y+50,100,100);
+    //for
+
+
 
 }
 
@@ -512,3 +509,14 @@ void MainWindow::on_pushButton_5_clicked()
 
 }
 
+
+void MainWindow::on_pushButton_6_clicked()
+{
+  TreeNode *hbls=new TreeNode();
+  TreeNode *hbls2=new TreeNode();
+  hbls->setDataKey("boogy");
+  hbls->setDataKey("boogy2");
+  hbls->addChildren(hbls2);
+  drawnode(hbls,0,0);
+
+}
