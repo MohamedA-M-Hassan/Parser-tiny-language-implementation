@@ -214,7 +214,7 @@ void MainWindow::on_pushButton_clicked()
             ui->tableWidget->clear();
             ui->tableWidget->setRowCount(0);
             //--------------------------
-            ui->label_2->show();
+            //ui->label_2->show();
 
             for (QVector< QPair <QString,QString> >::iterator it=input.begin(); it != input.end(); it++){
                 ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
@@ -237,14 +237,14 @@ void MainWindow::on_pushButton_clicked()
                 msgBox.exec();
 
                 ui->tableWidget->hide();
-                ui->label_2->hide();
+         //       ui->label_2->hide();
                 ui->pushButton_2->hide();
                 ui->tableWidget->hide();
                 ui->textEdit->clear();
                 // ui->tableWidget->clear();
                 ui->tableWidget->setRowCount(0);
                 ui->tableWidget->hide();
-                ui->label_2->hide();
+   //             ui->label_2->hide();
                 parserInput.clear();
 
             }
@@ -308,14 +308,14 @@ TreeNode *MainWindow::stmt()
         msgBox.exec();
 
         ui->tableWidget->hide();
-        ui->label_2->hide();
+ //       ui->label_2->hide();
         ui->pushButton_2->hide();
         ui->tableWidget->hide();
         ui->textEdit->clear();
         // ui->tableWidget->clear();
         ui->tableWidget->setRowCount(0);
         ui->tableWidget->hide();
-        ui->label_2->hide();
+//        ui->label_2->hide();
         parserInput.clear();
 
         //exit(0);
@@ -463,14 +463,14 @@ TreeNode *MainWindow::factor()
 
 
         ui->tableWidget->hide();
-        ui->label_2->hide();
+     //   ui->label_2->hide();
         ui->pushButton_2->hide();
         ui->tableWidget->hide();
         ui->textEdit->clear();
         // ui->tableWidget->clear();
         ui->tableWidget->setRowCount(0);
         ui->tableWidget->hide();
-        ui->label_2->hide();
+ //       ui->label_2->hide();
         parserInput.clear();
 
         //exit(0);
@@ -499,14 +499,14 @@ void  MainWindow::match (QString expectedToken)
 
 
             ui->tableWidget->hide();
-            ui->label_2->hide();
+ //           ui->label_2->hide();
             ui->pushButton_2->hide();
             ui->tableWidget->hide();
             ui->textEdit->clear();
             // ui->tableWidget->clear();
             ui->tableWidget->setRowCount(0);
             ui->tableWidget->hide();
-            ui->label_2->hide();
+ //           ui->label_2->hide();
             parserInput.clear();
 
 
@@ -545,7 +545,7 @@ void MainWindow::on_pushButton_4_clicked()
     ui->tableWidget->clear();
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->hide();
-    ui->label_2->hide();
+  //s  ui->label_2->hide();
     //-------------------
     // parser part
     // as it is a glbal variable: to ensure every time i click, i restart it
