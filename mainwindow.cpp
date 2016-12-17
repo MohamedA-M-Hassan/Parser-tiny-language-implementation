@@ -402,7 +402,7 @@ TreeNode *MainWindow::simpleExp()
     {
         TreeNode *temp= new TreeNode;
         temp->setDataKey("OP");
-        temp->setDataKey("("+it->first+")");
+        temp->setDataValue("("+it->first+")");
         temp->addChildren(simpleExp);
         match(it->second);
         simpleExp=temp;
