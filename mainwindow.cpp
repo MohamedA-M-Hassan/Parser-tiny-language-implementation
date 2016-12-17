@@ -109,8 +109,8 @@ void MainWindow::on_pushButton_clicked()
                     // outputToken["/"]="DIVIDE";
                  }
                  else if (text[i]=='*') {
-                    answer.push_back({"*","Multiple Operator"});
-                    parserInput.push_back("MULTIPLE");
+                    answer.push_back({"*","Multiple"});
+                    parserInput.push_back("Multiple");
                     //outputToken["*"]="MULTIPLE";
                  }
                  else if (text[i]==';') {
@@ -232,25 +232,34 @@ void MainWindow::on_pushButton_clicked()
     }
 
     /////////////////////////////////////////////////////////////////////
-    // parer part
+    // parser part
     it = parserInput.begin();
     itFlag=true;
-    if(parserInput.size()==1)
+    /*if(parserInput.size()==1)
     {
         QMessageBox msgBox;
         msgBox.setText("syntax error");
         msgBox.exec();
     }
-    else program();
+    else program();*/
+    ////////////// TRIAL
+    TreeNode *trial=term();
+    int x=1;
+    int z=2;
+    int asd=3;
+    x=z+asd;
+    TreeNode *t=trial;
 }
 
 // fn No.1
-void *MainWindow::program()
+void MainWindow::program()
 {
     while(itFlag)
     {
-      stmtSequnce();
-
+      TreeNode * n= stmtSequnce();
+      int X=3
+              ;
+      X=4+4;
     }
 }
 
@@ -357,13 +366,14 @@ TreeNode *MainWindow::exp()
     exp->setLeft(simpleExp());
     while(*it == "SmallerThan" || *it == "Equal" )
     {
-        exp->setData(*it);
+        exp->setDataKey(*it);
         match(*it);
         exp->setRight(simpleExp());
     }
 
     return exp;
 }
+
 //fn No.10
 TreeNode *MainWindow::simpleExp()
 {
@@ -383,15 +393,17 @@ TreeNode *MainWindow::simpleExp()
 TreeNode *MainWindow::term()
 {
     TreeNode *term = new TreeNode();
-    term->setLeft(factor());
-    while(*it=="Multiple Operator" || *it=="Divide")
+    term->addChildren(factor());
+    while(*it=="Multiple" || *it=="Divide")
     {
-        term->setData(*it);
+        term->setDataKey(*it);
         match(*it);
-        term->setRight(factor());
+        term->addChildren(factor());
     }
     return term;
 }
+
+
 
 //fn No.12
 TreeNode *MainWindow::factor()
@@ -406,13 +418,17 @@ TreeNode *MainWindow::factor()
     }
     else if(*it=="identefier")
     {
-        temp->setData(*it);
+        temp->setDataKey(*it);
+        temp->setDataValue(NULL);
+        temp->setRoot(NULL);
         match("identefier");
         return temp;
     }
     else if(*it=="Number")
     {
-        temp->setData("Number");
+        temp->setDataKey(*it);
+        temp->setDataValue(NULL);
+        temp->setRoot(NULL);
         match("Number");
         return temp;
     }

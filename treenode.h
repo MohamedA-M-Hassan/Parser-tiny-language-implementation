@@ -8,8 +8,10 @@ class TreeNode
 public:
     TreeNode();
     TreeNode(QString d);
-    void setData (QString d);
-    QString getData();
+    void setDataKey (QString d);
+    QString getDataKey();
+    void setDataValue (QString d);
+    QString getDataValue();
     void setRight(TreeNode * r);
     TreeNode *getRight();
     void setCenter(TreeNode * c);
@@ -24,10 +26,10 @@ public:
     QVector <TreeNode*> getChildren();
     void addChildren(TreeNode *t);
 private:
-    QString data;
+    QString dataKey;
+    QString dataValue;
     TreeNode *left;
     TreeNode *right;
-    //TreeNode *center;
     QVector <TreeNode*> children;
     int countChildren;
     int lineNo;
