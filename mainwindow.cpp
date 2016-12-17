@@ -236,11 +236,6 @@ void MainWindow::on_pushButton_clicked()
             }
             else rootOfTree=stmtSequnce();
 
-            int x=3;
-            x=3+3;
-            x=3+3;
-            x=3+3;
-
     }
 }
 
@@ -294,6 +289,7 @@ TreeNode *MainWindow::stmt()
         msgBox.exec();
         exit(0);
     }
+    return stmt;
 }
 
 // function No 4
@@ -495,17 +491,121 @@ void MainWindow::on_pushButton_4_clicked()
     parserInput.clear();
 
 }
-void MainWindow :: drawnode(TreeNode * v,int x,int y)
+void MainWindow :: drawLeftNode(TreeNode * l, int x, int y)
 {
-    scene->addRect(x,y,80,50);
+    scene->addLine(x,y,x-40,y+30);
+    scene->addRect(x-40,y+30,80,30);
+    scene->addSimpleText(l->getDataKey())->setPos(x-5,y+30);
 
-    scene->addSimpleText(v->getDataKey())->setPos(x+10,y+10);
+}
+void MainWindow :: drawRightNode (TreeNode * r, int x, int y)
+{
+    scene->addLine(x+80,y,x+120,y+30);
+    scene->addRect(x+80,y+30,80,30);
+    scene->addSimpleText(r->getDataKey())->setPos(x+100,y+40);
+}
 
-    scene->addLine(x+40,y+50,100,100);
-    //for
+void MainWindow ::drawCenterNode(TreeNode * c, int x, int y)
+{
+    scene->addLine(x+40,y,x+40,y+40);
+    y+=40;
+    scene->addRect(x,y,80,30);
+    scene->addSimpleText(c->getDataKey())->setPos(x+20,y+10);
+
+}
+
+void MainWindow :: drawnode(TreeNode * v)
+{
+    int x= -170,y=-110,width=80,length=30;
+    bool left =true,right=false;
+    scene->addRect(x,y,width,length);
+    scene->addSimpleText(v->getDataKey())->setPos(x+15,y+10);
+    y+=length;
+    QVector<TreeNode*> childs = v->getChildren();
+
+        for(int i =0 ; i<v->getCountChildren();i++)
+        {
+            if(v->getCountChildren()==1)
+            {
+                drawRightNode(childs[i],x,y);
+            }
+            else
+            {
+                if(left)
+                {
+                    int tempX=x,tempY=y;
+                    drawLeftNode(childs[i],x,y);
+                    x-=40;
+                    y+=60;
+                    for(int j = 0 ;j < childs[i]->getCountChildren();j++)
+                    {
+                        if(childs[i]->getCountChildren()==1)
+                        {
+                            drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
+                        }
+                        else{
+                            if(left)
+                            {
+
+                                drawLeftNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
+
+                            }
+                            if(right)
+                            {
+                                drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
+                            }
+                        }
+                        left = !left;
+                        right =!right;
 
 
+                    }
+                    x=tempX;
+                    y=tempY;
+                }
 
+                if(right)
+                {
+                    int tempX=x,tempY=y;
+                    drawRightNode(childs[i],x,y);
+                    x+=60;
+                    y+=60;
+                    for(int j = 0 ;j < childs[i]->getCountChildren();j++)
+                    {
+                        if(childs[i]->getCountChildren()==1)
+                        {
+                            drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
+
+                        }
+                        else
+                        {
+                            if(left)
+                            {
+
+                                drawLeftNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
+
+                            }
+                            if(right)
+                            {
+                                drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
+                            }
+                        }
+                        left = !left;
+                        right =!right;
+
+
+                    }
+                    x=tempX;
+                    y=tempY;
+                }
+
+             }
+
+            left = !left;
+            right =!right;
+
+
+    }
 }
 
 // insert button
@@ -525,11 +625,7 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_pushButton_6_clicked()
 {
-  TreeNode *hbls=new TreeNode();
-  TreeNode *hbls2=new TreeNode();
-  hbls->setDataKey("boogy");
-  hbls->setDataKey("boogy2");
-  hbls->addChildren(hbls2);
-  drawnode(hbls,0,0);
+
+  drawnode(rootOfTree);
 
 }

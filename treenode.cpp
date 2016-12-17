@@ -17,5 +17,6 @@ TreeNode *TreeNode::getRoot(){return root;}
 int TreeNode::getCountChildren(){return countChildren;}
 void TreeNode::addChildren(TreeNode *t){children.push_back(t); countChildren++;}
 QVector <TreeNode*> TreeNode::getChildren(){return children;}
+TreeNode* TreeNode::getChildrenByIndex(QVector <TreeNode*> childs , int index){return childs[index];}
 void TreeNode::setBehind(TreeNode * b){behind =b;}
 TreeNode *TreeNode::getBehind(){return behind;}

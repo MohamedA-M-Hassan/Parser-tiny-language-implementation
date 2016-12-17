@@ -30,7 +30,11 @@ public:
     TreeNode *repeatStmt();
     TreeNode *assignStmt();
     TreeNode *writeStmt();
-    void drawnode(TreeNode *v,int x,int y);
+    void drawnode(TreeNode *v);
+    void MainWindow ::drawLeftNode(TreeNode * l, int x, int y);
+    void MainWindow ::drawRightNode(TreeNode * r, int x, int y);
+    void MainWindow ::drawCenterNode(TreeNode * c, int x, int y);
+
     void match (QString expectedToken);
   private slots:
     void on_pushButton_clicked();
