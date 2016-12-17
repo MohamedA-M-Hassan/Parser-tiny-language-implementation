@@ -231,20 +231,24 @@ void MainWindow::on_pushButton_clicked()
             if(parserInput.size()==1)
             {
                 QMessageBox msgBox;
-                msgBox.setText("syntax error");
+                msgBox.setText("please study tiny lang. then back\n as there is syntax error");
                 msgBox.exec();
             }
-            else program();
+            else rootOfTree=stmtSequnce();
 
+            int x=3;
+            x=3+3;
+            x=3+3;
+            x=3+3;
 
     }
 }
 
 // fn No.1
-void MainWindow::program()
+/*void MainWindow::program()
 {
       TreeNode * n= stmtSequnce();
-}
+}*/
 
 // fn No.2
 TreeNode *MainWindow::stmtSequnce()
@@ -346,11 +350,14 @@ TreeNode *MainWindow::writeStmt(){
 TreeNode *MainWindow::exp()
 {
     TreeNode *exp = new TreeNode();
-    exp->addChildren(simpleExp());
+    exp=simpleExp();
     while(*it == "SmallerThan" || *it == "Equal" )
     {
-        exp->setDataKey(*it);
+        TreeNode *temp= new TreeNode;
+        temp->setDataKey(*it);
+        temp->addChildren(exp);
         match(*it);
+        exp=temp;
         exp->addChildren(simpleExp());
     }
     return exp;
@@ -359,15 +366,18 @@ TreeNode *MainWindow::exp()
 //fn No.10
 TreeNode *MainWindow::simpleExp()
 {
-    TreeNode *temp= new TreeNode;
-    temp->addChildren(term());
+    TreeNode *simpleExp= new TreeNode;
+    simpleExp=term();
     while(*it=="Plus" || *it=="Minus")
     {
+        TreeNode *temp= new TreeNode;
         temp->setDataKey(*it);
+        temp->addChildren(simpleExp);
         match(*it);
-        temp->addChildren(term());
+        simpleExp=temp;
+        simpleExp->addChildren(term());
     }
-    return temp;
+    return simpleExp;
 }
 
 //fn No.11

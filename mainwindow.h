@@ -20,7 +20,7 @@ public:
     ~MainWindow();
     TreeNode *exp ();
 
-    void program();
+    //void program();
     TreeNode *simpleExp();
     TreeNode *term();
     TreeNode *factor();
@@ -31,7 +31,7 @@ public:
     TreeNode *repeatStmt();
     TreeNode *assignStmt();
     TreeNode *writeStmt();
-     void drawnode(TreeNode *v,int x,int y);
+    void drawnode(TreeNode *v,int x,int y);
     void match (QString expectedToken);
   private slots:
     void on_pushButton_clicked();
@@ -55,6 +55,7 @@ private:
     QVector<QString> ::iterator it;
     QVector <QString>parserInput;
     bool itFlag;
+    TreeNode *rootOfTree=new TreeNode();
     QGraphicsScene *scene;
 };
 
