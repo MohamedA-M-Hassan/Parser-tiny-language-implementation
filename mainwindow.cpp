@@ -236,6 +236,18 @@ void MainWindow::on_pushButton_clicked()
                 QMessageBox msgBox;
                 msgBox.setText("please study tiny lang. then back\n as there is syntax error");
                 msgBox.exec();
+
+                ui->tableWidget->hide();
+                ui->label_2->hide();
+                ui->pushButton_2->hide();
+                ui->tableWidget->hide();
+                ui->textEdit->clear();
+                // ui->tableWidget->clear();
+                ui->tableWidget->setRowCount(0);
+                ui->tableWidget->hide();
+                ui->label_2->hide();
+                parserInput.clear();
+
             }
             else rootOfTree=stmtSequnce();
 
@@ -295,7 +307,19 @@ TreeNode *MainWindow::stmt()
         QMessageBox msgBox;
         msgBox.setText("Error");
         msgBox.exec();
-        exit(0);
+
+        ui->tableWidget->hide();
+        ui->label_2->hide();
+        ui->pushButton_2->hide();
+        ui->tableWidget->hide();
+        ui->textEdit->clear();
+        // ui->tableWidget->clear();
+        ui->tableWidget->setRowCount(0);
+        ui->tableWidget->hide();
+        ui->label_2->hide();
+        parserInput.clear();
+
+        //exit(0);
     }
 }
 
@@ -400,8 +424,6 @@ TreeNode *MainWindow::term()
     return term;
 }
 
-
-
 //fn No.12
 TreeNode *MainWindow::factor()
 {
@@ -434,7 +456,20 @@ TreeNode *MainWindow::factor()
         QMessageBox msgBox;
         msgBox.setText("Error");
         msgBox.exec();
-        exit(0);
+
+
+        ui->tableWidget->hide();
+        ui->label_2->hide();
+        ui->pushButton_2->hide();
+        ui->tableWidget->hide();
+        ui->textEdit->clear();
+        // ui->tableWidget->clear();
+        ui->tableWidget->setRowCount(0);
+        ui->tableWidget->hide();
+        ui->label_2->hide();
+        parserInput.clear();
+
+        //exit(0);
     }
 
 }
@@ -457,9 +492,24 @@ void  MainWindow::match (QString expectedToken)
             QMessageBox msgBox;
             msgBox.setText("Oh, there is an error\n ");
             msgBox.exec();
-            exit(0);
+
+
+            ui->tableWidget->hide();
+            ui->label_2->hide();
+            ui->pushButton_2->hide();
+            ui->tableWidget->hide();
+            ui->textEdit->clear();
+            // ui->tableWidget->clear();
+            ui->tableWidget->setRowCount(0);
+            ui->tableWidget->hide();
+            ui->label_2->hide();
+            parserInput.clear();
+
+
+            //exit(0);
         }
 }
+
 void MainWindow::on_textEdit_destroyed()
 {
  //   trial = "hi";
@@ -469,7 +519,6 @@ void MainWindow::on_pushButton_3_clicked()
 {
   close();
 }
-
 
 // trial Button
 void MainWindow::on_pushButton_2_clicked()
@@ -483,6 +532,7 @@ void MainWindow::on_pushButton_2_clicked()
     QTableWidgetItem *newItem2 = new QTableWidgetItem("Boogy");
     ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
 }
+
 // clear button
 void MainWindow::on_pushButton_4_clicked()
 {
@@ -499,6 +549,7 @@ void MainWindow::on_pushButton_4_clicked()
     ui->graphicsView->hide();
     ui->pushButton_6->hide();
 }
+
 void MainWindow :: drawnode(TreeNode * v,int x,int y)
 {
     scene->addRect(x,y,80,50);
@@ -525,7 +576,6 @@ void MainWindow::on_pushButton_5_clicked()
     ui->textEdit->setText(in.readAll());
 
 }
-
 
 void MainWindow::on_pushButton_6_clicked()
 {
