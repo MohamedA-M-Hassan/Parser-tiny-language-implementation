@@ -10,7 +10,7 @@
 
 #include <QString>
 #include <QMap>
-#include <QQueue>
+//#include <QQueue>
 
 
 
@@ -55,7 +55,7 @@ void MainWindow::on_pushButton_clicked()
 
     else{
             QString text = ui->textEdit->toPlainText(); // read the input
-
+            //QVector <pair <QString,QString> > input;
             QMap<QString,QString> token;
             token["if"]     ="if";
             token["then"]   ="then";
@@ -71,7 +71,6 @@ void MainWindow::on_pushButton_clicked()
 
             QString myCharContainer="";
 
-            QVector <pair <QString,QString> > answer;
             QString type;
             //////////////////////////////////////////
             // scanner part
@@ -105,46 +104,46 @@ void MainWindow::on_pushButton_clicked()
                             s=inNum;
                          }
                          else if (text[i]=='+') {
-                             answer.push_back({"+","Plus"});
+                             input.push_back({"+","Plus"});
                              parserInput.push_back("Plus");
                              //outputToken["+"]="PLUS";
                          }
                          else if (text[i]=='-') {
-                             answer.push_back({"-","Minus"});
+                             input.push_back({"-","Minus"});
                              parserInput.push_back("Minus");
                              //outputToken["-"]="MINUS";
                          }
                          else if (text[i]=='/') {
-                            answer.push_back({"/","Divide"});
+                            input.push_back({"/","Divide"});
                             parserInput.push_back("Divide");
                             // outputToken["/"]="DIVIDE";
                          }
                          else if (text[i]=='*') {
-                            answer.push_back({"*","Multiple"});
+                            input.push_back({"*","Multiple"});
                             parserInput.push_back("Multiple");
                             //outputToken["*"]="MULTIPLE";
                          }
                          else if (text[i]==';') {
-                            answer.push_back({";","SemiColon"});
+                            input.push_back({";","SemiColon"});
                             parserInput.push_back("SemiColon");
                             //outputToken[";"]="SEMI";
                          }
                          else if ( text[i]== '.'){
-                            answer.push_back({".","DOT"});
+                            input.push_back({".","DOT"});
                             parserInput.push_back("DOT");
                          }
                          else if ( text[i]== '<'){
-                            answer.push_back({"<","SmallerThan"});
+                            input.push_back({"<","SmallerThan"});
                             parserInput.push_back("SmallerThan");
                          }
                          else if ( text[i]=='>')
                          {
-                             answer.push_back({">","GreaterThan"});
+                             input.push_back({">","GreaterThan"});
                              parserInput.push_back("GreaterThan");
                          }
                          else if ( text[i]=='=')
                          {
-                             answer.push_back({"=","equal"});
+                             input.push_back({"=","Equal"});
                              parserInput.push_back("Equal");
                          }
                         break;
@@ -201,7 +200,7 @@ void MainWindow::on_pushButton_clicked()
 
                   case done:
                          //container.push_back(myCharContainer);
-                         answer.push_back({myCharContainer,type});
+                         input.push_back({myCharContainer,type});
                          parserInput.push_back(type);
                          s=start;
                    break;
@@ -217,7 +216,7 @@ void MainWindow::on_pushButton_clicked()
             //--------------------------
             ui->label_2->show();
 
-            for (QVector< pair <QString,QString> >::iterator it=answer.begin(); it != answer.end(); it++){
+            for (QVector< QPair <QString,QString> >::iterator it=input.begin(); it != input.end(); it++){
                 ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
                 QTableWidgetItem *newItem1 = new QTableWidgetItem(it->first);
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem1);
@@ -229,9 +228,9 @@ void MainWindow::on_pushButton_clicked()
             // parser part
             ui->pushButton_6->show();
             ui->graphicsView->show();
-            it = parserInput.begin();
+            it =input.begin();
             itFlag=true;
-            if(parserInput.size()==1)
+            if(input.size()==1)
             {
                 QMessageBox msgBox;
                 msgBox.setText("please study tiny lang. then back\n as there is syntax error");
@@ -258,7 +257,7 @@ TreeNode *MainWindow::stmtSequnce()
 {
     TreeNode *stmtSeq = new TreeNode();
     stmtSeq=stmt();
-    if (*it=="SemiColon")
+    if (it->second=="SemiColon")
     {
         match("SemiColon");
         stmtSeq->setBehind(stmt());
@@ -270,23 +269,23 @@ TreeNode *MainWindow::stmtSequnce()
 TreeNode *MainWindow::stmt()
 {
     TreeNode *stmt= new TreeNode();//TreeNode("stmt")
-    if(*it == "if")
+    if(it->second == "if")
     {
         stmt=ifStmt(); //stmt->setRight(ifStmt();
     }
-    else if(*it == "repeat")
+    else if(it->second == "repeat")
     {
        stmt=repeatStmt(); // //stmt->setRight(repeatStmt();
     }
-    else if (*it =="identefier")
+    else if (it->second =="identefier")
     {
         stmt=assignStmt();//stmt->setRight(assignStmt();
     }
-    else if(*it == "read")
+    else if(it->second == "read")
     {
        stmt=readStmt();//stmt->setRight(readStmt();
     }
-    else if (*it == "write")
+    else if (it->second == "write")
     {
         stmt=writeStmt();//stmt->setRight(writeStmt();
     }
@@ -307,7 +306,7 @@ TreeNode *MainWindow::ifStmt()
     temp->addChildren(exp());
     match("then");
     temp->addChildren(stmtSequnce());
-    if(*it=="else")
+    if(it->second=="else")
     { match("else");
       temp->addChildren(stmtSequnce());}
     match("end");
@@ -328,6 +327,7 @@ TreeNode *MainWindow::repeatStmt()
 // fn No 6
 TreeNode *MainWindow::assignStmt(){
     TreeNode *temp = new TreeNode("assign");
+    temp->setDataValue("("+it->first+")");
     match("identefier");
     match("assignment operator");
     temp->addChildren(exp());
@@ -338,7 +338,9 @@ TreeNode *MainWindow::readStmt()
 {
     TreeNode *read = new TreeNode("read");
     match("read");
-    match("identefier");read->setDataValue("identefier");
+    read->setDataValue("("+it->first+")");
+    match("identefier");
+
     return read;
 }
 
@@ -354,12 +356,13 @@ TreeNode *MainWindow::exp()
 {
     TreeNode *exp = new TreeNode();
     exp=simpleExp();
-    while(*it == "SmallerThan" || *it == "Equal" )
+    while(it->second == "SmallerThan" || it->second == "Equal" )
     {
         TreeNode *temp= new TreeNode;
-        temp->setDataKey(*it);
+        temp->setDataKey("OP");
+        temp->setDataValue("("+it->first+")");
         temp->addChildren(exp);
-        match(*it);
+        match(it->second);
         exp=temp;
         exp->addChildren(simpleExp());
     }
@@ -371,12 +374,13 @@ TreeNode *MainWindow::simpleExp()
 {
     TreeNode *simpleExp= new TreeNode;
     simpleExp=term();
-    while(*it=="Plus" || *it=="Minus")
+    while(it->second=="Plus" || it->second=="Minus")
     {
         TreeNode *temp= new TreeNode;
-        temp->setDataKey(*it);
+        temp->setDataKey("OP");
+        temp->setDataKey("("+it->first+")");
         temp->addChildren(simpleExp);
-        match(*it);
+        match(it->second);
         simpleExp=temp;
         simpleExp->addChildren(term());
     }
@@ -388,12 +392,13 @@ TreeNode *MainWindow::term()
 {
     TreeNode *term = new TreeNode();
     term=factor();
-    while(*it=="Multiple" || *it=="Divide")
+    while(it->second=="Multiple" || it->second=="Divide")
     {
         TreeNode *temp = new TreeNode();
-        temp->setDataKey(*it);
+        temp->setDataKey("OP");
+        temp->setDataValue("("+it->first+")");
         temp->addChildren(term);
-        match(*it);
+        match(it->second);
         term=temp;
         term->addChildren(factor());
     }
@@ -406,26 +411,25 @@ TreeNode *MainWindow::term()
 TreeNode *MainWindow::factor()
 {
     TreeNode *temp=new TreeNode();
-    if(*it=="(")
+    if(it->second=="(")
     {
         match("(");
         temp = exp();
         match(")");
         return temp;
     }
-    else if(*it=="identefier")
+    else if(it->second=="identefier")
     {
-        temp->setDataKey(*it);
-        //temp->setDataValue(NULL);
+        temp->setDataKey("Id");
+        temp->setDataValue("("+it->first+")");
         //temp->setRoot(NULL);
         match("identefier");
         return temp;
     }
-    else if(*it=="Number")
+    else if(it->second=="Number")
     {
-        temp->setDataKey(*it);
-        //temp->setDataValue(NULL);
-        //temp->setRoot(NULL);
+        temp->setDataKey("const");
+        temp->setDataValue(it->first);
         match("Number");
         return temp;
     }
@@ -442,10 +446,10 @@ TreeNode *MainWindow::factor()
 // fn No 16
 void  MainWindow::match (QString expectedToken)
 {
-     if (*it == expectedToken)
+     if (it->second == expectedToken)
         {
             it++;
-            if (it== parserInput.end())
+            if (it== input.end())
             {it--;
                 int c=3;
                 c=4+4;}

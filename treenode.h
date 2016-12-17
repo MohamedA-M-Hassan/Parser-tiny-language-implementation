@@ -27,6 +27,8 @@ public:
     void addChildren(TreeNode *t);
     void setBehind(TreeNode * b);
     TreeNode *getBehind();
+    // constructor
+    TreeNode(QString k,QString v);
 
 private:
     QString dataKey;
