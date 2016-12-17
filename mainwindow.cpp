@@ -254,13 +254,14 @@ void MainWindow::on_pushButton_clicked()
 // fn No.1
 void MainWindow::program()
 {
-    while(itFlag)
-    {
       TreeNode * n= stmtSequnce();
-      int X=3
-              ;
-      X=4+4;
-    }
+      // last test to check syntax error
+      if ( *it != "SemiSemiColon")
+      {
+          QMessageBox msgBox;
+          msgBox.setText("Error");
+          msgBox.exec();
+      }
 }
 
 // fn No.2

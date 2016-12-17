@@ -1,15 +1,15 @@
 #include "treenode.h"
 
-TreeNode::TreeNode(){root=NULL;left=NULL;right=NULL;countChildren=0;behind=NULL;}
-TreeNode::TreeNode(QString d){this->dataKey=d;root=NULL;left=NULL;right=NULL;countChildren=0;behind=NULL;}
+TreeNode::TreeNode(){root=NULL;/*left=NULL;right=NULL;*/countChildren=0;behind=NULL;}
+TreeNode::TreeNode(QString d){this->dataKey=d;root=NULL;/*left=NULL;right=NULL;*/countChildren=0;behind=NULL;}
 void TreeNode::setDataKey (QString d){dataKey=d;}
 QString TreeNode::getDataKey(){return dataKey;}
 void TreeNode::setDataValue (QString d){dataValue=d;}
 QString TreeNode::getDataValue(){return dataValue;}
-void TreeNode::setRight(TreeNode * r) {right=r;}
+/*void TreeNode::setRight(TreeNode * r) {right=r;}
 TreeNode *TreeNode::getRight(){return right;}
 void TreeNode::setLeft(TreeNode * l) {left=l;}
-TreeNode *TreeNode::getLeft(){return left;}
+TreeNode *TreeNode::getLeft(){return left;}*/
 void TreeNode::setLineNo (int d){lineNo=d;}
 int TreeNode::getlineNo()    {return lineNo;}
 void TreeNode::setRoot(TreeNode * r){root =r;}
