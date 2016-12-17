@@ -279,26 +279,26 @@ TreeNode *MainWindow::stmtSequnce()
 //fn No.3
 TreeNode *MainWindow::stmt()
 {
-    TreeNode *stmt= new TreeNode("stmt");
+    TreeNode *stmt= new TreeNode();
     if(*it == "if")
     {
-        stmt->setRight(ifStmt());
+        stmt=ifStmt();
     }
     else if(*it == "repeat")
     {
-       stmt->setRight(repeatStmt());
+       stmt=repeatStmt();
     }
     else if (*it =="identefier")
     {
-        stmt->setRight(assignStmt());
+        stmt=assignStmt();
     }
     else if(*it == "read")
     {
-       stmt->setRight(readStmt());
+       stmt=readStmt();
     }
     else if (*it == "write")
     {
-       stmt->setRight(writeStmt());
+       stmt=writeStmt();
     }
     else
     {
