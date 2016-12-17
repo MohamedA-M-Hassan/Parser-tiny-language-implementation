@@ -26,9 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableWidget->hide();
     ui->label_2->hide();
     ui->pushButton_2->hide();
-
+    ui->pushButton_6->hide();
     ui->tableWidget->hide();
     ui->graphicsView->setScene(scene);
+    ui->graphicsView->hide();
 }
 
 MainWindow::~MainWindow()
@@ -226,6 +227,8 @@ void MainWindow::on_pushButton_clicked()
 
             /////////////////////////////////////////////////////////////////////
             // parser part
+            ui->pushButton_6->show();
+            ui->graphicsView->show();
             it = parserInput.begin();
             itFlag=true;
             if(parserInput.size()==1)
@@ -493,7 +496,8 @@ void MainWindow::on_pushButton_4_clicked()
     // parser part
     // as it is a glbal variable: to ensure every time i click, i restart it
     parserInput.clear();
-
+    ui->graphicsView->hide();
+    ui->pushButton_6->hide();
 }
 void MainWindow :: drawnode(TreeNode * v,int x,int y)
 {

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1079</width>
-    <height>723</height>
+    <width>1101</width>
+    <height>743</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="pushButton_3">
     <property name="geometry">
      <rect>
-      <x>610</x>
-      <y>310</y>
+      <x>970</x>
+      <y>650</y>
       <width>90</width>
       <height>25</height>
      </rect>
@@ -43,46 +43,20 @@
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>580</x>
       <y>10</y>
-      <width>671</width>
-      <height>20</height>
+      <width>111</width>
+      <height>27</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>insert code to scan:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Scanner Result</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QHBoxLayout" name="horizontalLayout"/>
    </widget>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>9</y>
-      <width>240</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>310</y>
-      <width>201</width>
+      <y>30</y>
+      <width>241</width>
       <height>27</height>
      </rect>
     </property>
@@ -90,7 +64,7 @@
      <item>
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>insert .txt file</string>
+        <string>insert from *.txt file</string>
        </property>
       </widget>
      </item>
@@ -107,7 +81,7 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>260</y>
+      <y>300</y>
       <width>221</width>
       <height>27</height>
      </rect>
@@ -133,8 +107,8 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>40</y>
-      <width>341</width>
+      <y>70</y>
+      <width>241</width>
       <height>211</height>
      </rect>
     </property>
@@ -142,10 +116,10 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>41</y>
+      <x>20</x>
+      <y>370</y>
       <width>251</width>
-      <height>211</height>
+      <height>261</height>
      </rect>
     </property>
     <property name="rowCount">
@@ -166,24 +140,50 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>370</y>
-      <width>391</width>
-      <height>261</height>
+      <x>320</x>
+      <y>70</y>
+      <width>771</width>
+      <height>561</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_6">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>310</y>
-      <width>89</width>
+      <x>320</x>
+      <y>30</y>
+      <width>171</width>
       <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>let's draw syntax tree</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>330</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Scanner Result</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>0</y>
+      <width>141</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>insert code to scan:</string>
     </property>
    </widget>
    <zorder>textEdit</zorder>
@@ -191,18 +191,19 @@
    <zorder>pushButton_2</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>layoutWidget</zorder>
-   <zorder>layoutWidget</zorder>
    <zorder>tableWidget</zorder>
    <zorder>layoutWidget</zorder>
    <zorder>graphicsView</zorder>
    <zorder>pushButton_6</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1079</width>
+     <width>1101</width>
      <height>22</height>
     </rect>
    </property>
