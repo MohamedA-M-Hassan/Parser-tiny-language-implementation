@@ -12,6 +12,8 @@
 #include <QMap>
 #include <QQueue>
 
+
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -19,14 +21,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    scene=new QGraphicsScene(this);
     // hide
     ui->tableWidget->hide();
     ui->label_2->hide();
     ui->pushButton_2->hide();
-    ui->textBrowser->hide();
+
     ui->tableWidget->hide();
-   // ui->pushButton_6->hide();
-    //void ifStmt(QString currentToken);
+    ui->graphicsView->setScene(scene);
 }
 
 MainWindow::~MainWindow()
@@ -43,253 +45,247 @@ void MainWindow::on_pushButton_clicked()
     // as it is a glbal variable: to ensure every time i click, i restart it
     parserInput.clear();
 
-    QString text = ui->textEdit->toPlainText(); // read the input
+    if ( ui->textEdit->toPlainText()==NULL)
+        {
+            QMessageBox msgBox;
+            msgBox.setText("stop playing xD\n insert ur code");
+            msgBox.exec();
+        }
 
-    QMap<QString,QString> token;
-    token["if"]     ="if";
-    token["then"]   ="then";
-    token["end"]    ="end";
-    token["until"]  ="until";
-    token["write"]  ="write";
-    token["else"]   ="else";
-    token["repeat"] ="repeat";
-    token["read"]   ="read";
+    else{
+            QString text = ui->textEdit->toPlainText(); // read the input
 
-    enum state{start,inComment,inID,inNum,inAssign,done};
-    state s=start;
+            QMap<QString,QString> token;
+            token["if"]     ="if";
+            token["then"]   ="then";
+            token["end"]    ="end";
+            token["until"]  ="until";
+            token["write"]  ="write";
+            token["else"]   ="else";
+            token["repeat"] ="repeat";
+            token["read"]   ="read";
 
-    QString myCharContainer="";
+            enum state{start,inComment,inID,inNum,inAssign,done};
+            state s=start;
 
-    QVector <pair <QString,QString> > answer;
-    QString type;
-    //////////////////////////////////////////
-    // scanner part
-    for (int i = 0 ;i < (text.size()+1);i++){
-     //   QChar ch = text[i];
-        label:  switch (s) {   // the label to not waste the current char
-                               // or u can use (i--) instead of (goto)
-          case start:
-                 myCharContainer="";
-                 // comment
-                 if (text[i]=='{')
-                 {
-                    //myCharContainer=myCharContainer+text[i];
-                    s=inComment;
-                 }
-                 // assign
-                 else if (text[i]==':') {
-                    myCharContainer=myCharContainer+text[i];
-                    s=inAssign;
-                 }
-                 // alphapitic
-                 else if (text[i].isLetter())
-                 {
-                     myCharContainer=myCharContainer+text[i];
-                     s=inID;
-                 }
-                 //  Numbers
-                 else if (text[i].isDigit())
-                 {
-                    myCharContainer=myCharContainer+text[i];
-                    s=inNum;
-                 }
-                 else if (text[i]=='+') {
-                     answer.push_back({"+","Plus"});
-                     parserInput.push_back("Plus");
-                     //outputToken["+"]="PLUS";
-                 }
-                 else if (text[i]=='-') {
-                     answer.push_back({"-","Minus"});
-                     parserInput.push_back("Minus");
-                     //outputToken["-"]="MINUS";
-                 }
-                 else if (text[i]=='/') {
-                    answer.push_back({"/","Divide"});
-                    parserInput.push_back("Divide");
-                    // outputToken["/"]="DIVIDE";
-                 }
-                 else if (text[i]=='*') {
-                    answer.push_back({"*","Multiple Operator"});
-                    parserInput.push_back("MULTIPLE");
-                    //outputToken["*"]="MULTIPLE";
-                 }
-                 else if (text[i]==';') {
-                    answer.push_back({";","SemiColon"});
-                    parserInput.push_back("SemiColon");
-                    //outputToken[";"]="SEMI";
-                 }
-                 else if ( text[i]== '.'){
-                    answer.push_back({".","DOT"});
-                    parserInput.push_back("DOT");
-                 }
-                 else if ( text[i]== '<'){
-                    answer.push_back({"<","SmallerThan"});
-                    parserInput.push_back("SmallerThan");
-                 }
-                 else if ( text[i]=='>')
-                 {
-                     answer.push_back({">","GreaterThan"});
-                     parserInput.push_back("GreaterThan");
-                 }
-                 else if ( text[i]=='=')
-                 {
-                     answer.push_back({"=","equal"});
-                     parserInput.push_back("Equal");
-                 }
-                break;
+            QString myCharContainer="";
+
+            QVector <pair <QString,QString> > answer;
+            QString type;
+            //////////////////////////////////////////
+            // scanner part
+            for (int i = 0 ;i < (text.size()+1);i++){
+             //   QChar ch = text[i];
+                label:  switch (s) {   // the label to not waste the current char
+                                       // or u can use (i--) instead of (goto)
+                  case start:
+                         myCharContainer="";
+                         // comment
+                         if (text[i]=='{')
+                         {
+                            //myCharContainer=myCharContainer+text[i];
+                            s=inComment;
+                         }
+                         // assign
+                         else if (text[i]==':') {
+                            myCharContainer=myCharContainer+text[i];
+                            s=inAssign;
+                         }
+                         // alphapitic
+                         else if (text[i].isLetter())
+                         {
+                             myCharContainer=myCharContainer+text[i];
+                             s=inID;
+                         }
+                         //  Numbers
+                         else if (text[i].isDigit())
+                         {
+                            myCharContainer=myCharContainer+text[i];
+                            s=inNum;
+                         }
+                         else if (text[i]=='+') {
+                             answer.push_back({"+","Plus"});
+                             parserInput.push_back("Plus");
+                             //outputToken["+"]="PLUS";
+                         }
+                         else if (text[i]=='-') {
+                             answer.push_back({"-","Minus"});
+                             parserInput.push_back("Minus");
+                             //outputToken["-"]="MINUS";
+                         }
+                         else if (text[i]=='/') {
+                            answer.push_back({"/","Divide"});
+                            parserInput.push_back("Divide");
+                            // outputToken["/"]="DIVIDE";
+                         }
+                         else if (text[i]=='*') {
+                            answer.push_back({"*","Multiple"});
+                            parserInput.push_back("Multiple");
+                            //outputToken["*"]="MULTIPLE";
+                         }
+                         else if (text[i]==';') {
+                            answer.push_back({";","SemiColon"});
+                            parserInput.push_back("SemiColon");
+                            //outputToken[";"]="SEMI";
+                         }
+                         else if ( text[i]== '.'){
+                            answer.push_back({".","DOT"});
+                            parserInput.push_back("DOT");
+                         }
+                         else if ( text[i]== '<'){
+                            answer.push_back({"<","SmallerThan"});
+                            parserInput.push_back("SmallerThan");
+                         }
+                         else if ( text[i]=='>')
+                         {
+                             answer.push_back({">","GreaterThan"});
+                             parserInput.push_back("GreaterThan");
+                         }
+                         else if ( text[i]=='=')
+                         {
+                             answer.push_back({"=","equal"});
+                             parserInput.push_back("Equal");
+                         }
+                        break;
 
 
-           case inAssign:
-                   if (text[i]=='=')
-                   {
-                       myCharContainer= myCharContainer+(text[i]);
-                        type="assignment operator";
+                   case inAssign:
+                           if (text[i]=='=')
+                           {
+                               myCharContainer= myCharContainer+(text[i]);
+                                type="assignment operator";
 
-                   }
-                   else{
-                        i--;
-                        type="Colon";
-                   }
-                   s=done;
-                   goto label;
-                          // or u can use (i--) instead of (goto)
-                   break;
-           case inComment:
-                    while (text[i] !='}')
-                        { i++;}
-                    s=start;
+                           }
+                           else{
+                                i--;
+                                type="Colon";
+                           }
+                           s=done;
+                           goto label;
+                                  // or u can use (i--) instead of (goto)
+                           break;
+                   case inComment:
+                            while (text[i] !='}')
+                                { i++;}
+                            s=start;
+                            break;
+                   case inNum:
+                            while (text[i].isDigit())
+                            {
+                                myCharContainer=myCharContainer+text[i];
+                                i++;
+                            }
+                            i--;
+                            //outputToken[myCharContainer]="Number";
+                            type="Number";
+                            s=done;
+                            //s=start;
+                            goto label;
+                             break;
+                   case inID:
+                             while (text[i].isLetter()||text[i].isDigit())
+                             {
+                                 myCharContainer=myCharContainer+text[i];
+                                 i++;
+                             }
+                             i--;
+                             if (token.find(myCharContainer)!=token.end())
+                             {
+                                 type=token[myCharContainer];
+                             }
+                             else type="identefier";
+                             s=done;
+                            goto label;
                     break;
-           case inNum:
-                    while (text[i].isDigit())
-                    {
-                        myCharContainer=myCharContainer+text[i];
-                        i++;
-                    }
-                    i--;
-                    //outputToken[myCharContainer]="Number";
-                    type="Number";
-                    s=done;
-                    //s=start;
-                    goto label;
-                     break;
-           case inID:
-                     while (text[i].isLetter()||text[i].isDigit())
-                     {
-                         myCharContainer=myCharContainer+text[i];
-                         i++;
-                     }
-                     i--;
-                     if (token.find(myCharContainer)!=token.end())
-                     {
-                         type=token[myCharContainer];
-                     }
-                     else type="identefier";
-                     s=done;
-                    goto label;
-            break;
 
-          case done:
-                 //container.push_back(myCharContainer);
-                 answer.push_back({myCharContainer,type});
-                 parserInput.push_back(type);
-                 s=start;
-           break;
-          }
-      }
-
-     /*   // to get the Reserved word and the Identefier
-      for(QVector<QString>::iterator vec = container.begin(); vec != container.end(); vec++) {
-          for (QMap<QString,QString>::iterator mp=token.begin();mp!=token.end(); mp++) {
-              if (vec ==mp.key() )
-              {
-                  outputToken[mp.key()]=mp.value();
-                  break;
+                  case done:
+                         //container.push_back(myCharContainer);
+                         answer.push_back({myCharContainer,type});
+                         parserInput.push_back(type);
+                         s=start;
+                   break;
+                  }
               }
-              else outputToken[*vec]="IDENTEFIER";
-           }
-      }*/
-    /* //to print in textBrowser not so good
-    ui->textBrowser->setText("Symbol       ||    TokenType");// added so when you repeat the use of the button just restart w mtkmlsh 3la el2dyym
 
-    for (QVector< pair <QString,QString> >::iterator it=answer.begin(); it != answer.end(); it++) {
-        ui->textBrowser->append(it->first + "       ||    " + it->second);
-    }*/
-    // to print in a table
-    ui->tableWidget->show();
-    // ------------
-    // to not repeat the data
-    ui->tableWidget->clear();
-    ui->tableWidget->setRowCount(0);
-    //--------------------------
-    ui->label_2->show();
+            // to print in a table
+            ui->tableWidget->show();
+            // ------------
+            // to not repeat the data
+            ui->tableWidget->clear();
+            ui->tableWidget->setRowCount(0);
+            //--------------------------
+            ui->label_2->show();
 
-    for (QVector< pair <QString,QString> >::iterator it=answer.begin(); it != answer.end(); it++){
-        ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
-        QTableWidgetItem *newItem1 = new QTableWidgetItem(it->first);
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem1);
-        QTableWidgetItem *newItem2 = new QTableWidgetItem(it->second);
-        ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
+            for (QVector< pair <QString,QString> >::iterator it=answer.begin(); it != answer.end(); it++){
+                ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
+                QTableWidgetItem *newItem1 = new QTableWidgetItem(it->first);
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem1);
+                QTableWidgetItem *newItem2 = new QTableWidgetItem(it->second);
+                ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
+            }
+
+            /////////////////////////////////////////////////////////////////////
+            // parser part
+            it = parserInput.begin();
+            itFlag=true;
+            if(parserInput.size()==1)
+            {
+                QMessageBox msgBox;
+                msgBox.setText("please study tiny lang. then back\n as there is syntax error");
+                msgBox.exec();
+            }
+            else rootOfTree=stmtSequnce();
+
+            int x=3;
+            x=3+3;
+            x=3+3;
+            x=3+3;
+
     }
-
-    /////////////////////////////////////////////////////////////////////
-    // parer part
-    it = parserInput.begin();
-    itFlag=true;
-    if(parserInput.size()==1)
-    {
-        QMessageBox msgBox;
-        msgBox.setText("syntax error");
-        msgBox.exec();
-    }
-    else program();
 }
 
 // fn No.1
-void MainWindow::program()
+/*void MainWindow::program()
 {
-    while(itFlag)
-    {
-      stmtSequnce();
-
-    }
-}
+      TreeNode * n= stmtSequnce();
+}*/
 
 // fn No.2
 TreeNode *MainWindow::stmtSequnce()
 {
-    TreeNode *temp = new TreeNode("stmt_sequence");
-    temp->setLeft(stmt());
+    TreeNode *stmtSeq = new TreeNode();
+    stmtSeq=stmt();
     if (*it=="SemiColon")
     {
         match("SemiColon");
-        temp->setRight(stmt());
+        stmtSeq->setBehind(stmt());
     }
-    return temp;
+    return stmtSeq;
 }
 
 //fn No.3
 TreeNode *MainWindow::stmt()
 {
-    TreeNode *stmt= new TreeNode("stmt");
+    TreeNode *stmt= new TreeNode();//TreeNode("stmt")
     if(*it == "if")
     {
-        stmt->setRight(ifStmt());
+        stmt=ifStmt(); //stmt->setRight(ifStmt();
     }
     else if(*it == "repeat")
     {
-       stmt->setRight(repeatStmt());
+       stmt=repeatStmt(); // //stmt->setRight(repeatStmt();
     }
     else if (*it =="identefier")
     {
-        stmt->setRight(assignStmt());
+        stmt=assignStmt();//stmt->setRight(assignStmt();
     }
     else if(*it == "read")
     {
-       stmt->setRight(readStmt());
+       stmt=readStmt();//stmt->setRight(readStmt();
     }
     else if (*it == "write")
     {
-       stmt->setRight(writeStmt());
+        stmt=writeStmt();//stmt->setRight(writeStmt();
     }
     else
     {
@@ -305,9 +301,9 @@ TreeNode *MainWindow::ifStmt()
 {
     TreeNode *temp = new TreeNode("if");
     match("if");
-    temp->setLeft(exp());
+    temp->addChildren(exp());
     match("then");
-    temp->setRight(stmtSequnce());
+    temp->addChildren(stmtSequnce());
     if(*it=="else")
     { match("else");
       temp->addChildren(stmtSequnce());}
@@ -320,9 +316,9 @@ TreeNode *MainWindow::repeatStmt()
 {
     TreeNode *repeat = new TreeNode("repeat");
     match("repeat");
-    repeat->setLeft(stmtSequnce());
+    repeat->addChildren(stmtSequnce());
     match("until");
-    repeat->setRight(exp());
+    repeat->addChildren(exp());
     return repeat;
 }
 
@@ -331,7 +327,7 @@ TreeNode *MainWindow::assignStmt(){
     TreeNode *temp = new TreeNode("assign");
     match("identefier");
     match("assignment operator");
-    temp->setLeft(exp());
+    temp->addChildren(exp());
     return temp;
 }
 //fn No.7
@@ -339,7 +335,7 @@ TreeNode *MainWindow::readStmt()
 {
     TreeNode *read = new TreeNode("read");
     match("read");
-    match("identefier");
+    match("identefier");read->setDataValue("identefier");
     return read;
 }
 
@@ -347,51 +343,61 @@ TreeNode *MainWindow::readStmt()
 TreeNode *MainWindow::writeStmt(){
     TreeNode *temp=new TreeNode("write");
     match("write");
-    temp->setLeft(exp());
+    temp->addChildren(exp());
     return temp;
 }
 // fn No.9
 TreeNode *MainWindow::exp()
 {
     TreeNode *exp = new TreeNode();
-    exp->setLeft(simpleExp());
+    exp=simpleExp();
     while(*it == "SmallerThan" || *it == "Equal" )
     {
-        exp->setData(*it);
+        TreeNode *temp= new TreeNode;
+        temp->setDataKey(*it);
+        temp->addChildren(exp);
         match(*it);
-        exp->setRight(simpleExp());
+        exp=temp;
+        exp->addChildren(simpleExp());
     }
-
     return exp;
 }
+
 //fn No.10
 TreeNode *MainWindow::simpleExp()
 {
-    TreeNode *temp=term();
+    TreeNode *simpleExp= new TreeNode;
+    simpleExp=term();
     while(*it=="Plus" || *it=="Minus")
     {
-        TreeNode *newNode =new TreeNode (*it);
+        TreeNode *temp= new TreeNode;
+        temp->setDataKey(*it);
+        temp->addChildren(simpleExp);
         match(*it);
-        newNode->addChildren(temp);
-        newNode->addChildren(term());
-        temp=newNode;
+        simpleExp=temp;
+        simpleExp->addChildren(term());
     }
-    return temp;
+    return simpleExp;
 }
 
 //fn No.11
 TreeNode *MainWindow::term()
 {
     TreeNode *term = new TreeNode();
-    term->setLeft(factor());
-    while(*it=="Multiple Operator" || *it=="Divide")
+    term=factor();
+    while(*it=="Multiple" || *it=="Divide")
     {
-        term->setData(*it);
+        TreeNode *temp = new TreeNode();
+        temp->setDataKey(*it);
+        temp->addChildren(term);
         match(*it);
-        term->setRight(factor());
+        term=temp;
+        term->addChildren(factor());
     }
     return term;
 }
+
+
 
 //fn No.12
 TreeNode *MainWindow::factor()
@@ -406,13 +412,17 @@ TreeNode *MainWindow::factor()
     }
     else if(*it=="identefier")
     {
-        temp->setData(*it);
+        temp->setDataKey(*it);
+        //temp->setDataValue(NULL);
+        //temp->setRoot(NULL);
         match("identefier");
         return temp;
     }
     else if(*it=="Number")
     {
-        temp->setData("Number");
+        temp->setDataKey(*it);
+        //temp->setDataValue(NULL);
+        //temp->setRoot(NULL);
         match("Number");
         return temp;
     }
@@ -433,8 +443,11 @@ void  MainWindow::match (QString expectedToken)
         {
             it++;
             if (it== parserInput.end())
-                //it--;
-                itFlag=false;
+            {it--;
+                int c=3;
+                c=4+4;}
+
+                //itFlag=false;
         }
         else
         {
@@ -451,7 +464,7 @@ void MainWindow::on_textEdit_destroyed()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-   close();
+  close();
 }
 
 
@@ -471,7 +484,7 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     ui->textEdit->clear();
-    ui->textBrowser->clear();
+
     ui->tableWidget->clear();
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->hide();
@@ -480,6 +493,18 @@ void MainWindow::on_pushButton_4_clicked()
     // parser part
     // as it is a glbal variable: to ensure every time i click, i restart it
     parserInput.clear();
+
+}
+void MainWindow :: drawnode(TreeNode * v,int x,int y)
+{
+    scene->addRect(x,y,80,50);
+
+    scene->addSimpleText(v->getDataKey())->setPos(x+10,y+10);
+
+    scene->addLine(x+40,y+50,100,100);
+    //for
+
+
 
 }
 
@@ -497,3 +522,14 @@ void MainWindow::on_pushButton_5_clicked()
 
 }
 
+
+void MainWindow::on_pushButton_6_clicked()
+{
+  TreeNode *hbls=new TreeNode();
+  TreeNode *hbls2=new TreeNode();
+  hbls->setDataKey("boogy");
+  hbls->setDataKey("boogy2");
+  hbls->addChildren(hbls2);
+  drawnode(hbls,0,0);
+
+}

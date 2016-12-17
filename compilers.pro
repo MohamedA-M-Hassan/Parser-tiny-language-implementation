@@ -14,12 +14,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    treenode.cpp \
-    tree.cpp
+    treenode.cpp
 
 HEADERS  += mainwindow.h \
     scanner.h \
-    treenode.h \
-    tree.h
+    treenode.h
 
 FORMS    += mainwindow.ui
