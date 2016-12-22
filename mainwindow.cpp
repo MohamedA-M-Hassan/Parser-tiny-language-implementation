@@ -478,7 +478,7 @@ TreeNode *MainWindow::factor()
         ui->tableWidget->setRowCount(0);
         ui->tableWidget->hide();
  //       ui->label_2->hide();
-        parserInput.clear();
+        input.clear();
 
         //exit(0);
     }
@@ -514,7 +514,7 @@ void  MainWindow::match (QString expectedToken)
             ui->tableWidget->setRowCount(0);
             ui->tableWidget->hide();
  //           ui->label_2->hide();
-            parserInput.clear();
+            input.clear();
 
 
             //exit(0);
@@ -552,7 +552,7 @@ void MainWindow::on_pushButton_4_clicked()
     ui->tableWidget->clear();
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->hide();
-  //s  ui->label_2->hide();
+    //s  ui->label_2->hide();
     //-------------------
     // parser part
     // as it is a glbal variable: to ensure every time i click, i restart it
@@ -660,8 +660,6 @@ void MainWindow::drawTree(TreeNode * no)
     if(no->getBehind()!=NULL)
     {
        drawTree(no->getBehind());
-=======
->>>>>>> 7617b65d016f910f7cd9ad7a37130f46bb68ee0a
     }
 }
 void MainWindow::drawNode(TreeNode * no)
