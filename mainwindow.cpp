@@ -41,10 +41,12 @@ QVector<QString> ::iterator it;
 void MainWindow::on_pushButton_clicked()
 {
 
+    it = NULL;
 
     using namespace std;
     // as it is a glbal variable: to ensure every time i click, i restart it
     parserInput.clear();
+    input.clear();
 
     if ( ui->textEdit->toPlainText()==NULL)
         {
@@ -216,11 +218,11 @@ void MainWindow::on_pushButton_clicked()
             //--------------------------
             //ui->label_2->show();
 
-            for (QVector< QPair <QString,QString> >::iterator it=input.begin(); it != input.end(); it++){
+            for (QVector< QPair <QString,QString> >::iterator i=input.begin(); i != input.end(); i++){
                 ui->tableWidget->setRowCount(ui->tableWidget->rowCount()+1);
-                QTableWidgetItem *newItem1 = new QTableWidgetItem(it->first);
+                QTableWidgetItem *newItem1 = new QTableWidgetItem(i->first);
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 0, newItem1);
-                QTableWidgetItem *newItem2 = new QTableWidgetItem(it->second);
+                QTableWidgetItem *newItem2 = new QTableWidgetItem(i->second);
                 ui->tableWidget->setItem(ui->tableWidget->rowCount()-1, 1, newItem2);
             }
 
@@ -249,6 +251,16 @@ void MainWindow::on_pushButton_clicked()
 
             }
             else rootOfTree=stmtSequnce();
+            int x =3;
+               x =3;
+               x =3;
+               x =3;
+               x =3;
+               x =3;
+               x =3;
+               x =3;
+               x =3;
+
 
     }
 }
@@ -267,7 +279,7 @@ TreeNode *MainWindow::stmtSequnce()
     if (it->second=="SemiColon")
     {
         match("SemiColon");
-        stmtSeq->setBehind(stmt());
+        stmtSeq->setBehind(stmtSequnce());
     }
     return stmtSeq;
 }
@@ -358,9 +370,8 @@ TreeNode *MainWindow::readStmt()
 {
     TreeNode *read = new TreeNode("read");
     match("read");
-    read->setDataValue("("+it->first+")");
     match("identefier");
-
+    //read->setDataValue("("+it->second+")");
     return read;
 }
 
@@ -537,7 +548,7 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_pushButton_4_clicked()
 {
     ui->textEdit->clear();
-
+    scene->clear();
     ui->tableWidget->clear();
     ui->tableWidget->setRowCount(0);
     ui->tableWidget->hide();
@@ -546,21 +557,25 @@ void MainWindow::on_pushButton_4_clicked()
     // parser part
     // as it is a glbal variable: to ensure every time i click, i restart it
     parserInput.clear();
+    input.clear();
+    it=NULL;
     ui->graphicsView->hide();
     ui->pushButton_6->hide();
 }
+
+/*
 void MainWindow :: drawLeftNode(TreeNode * l, int x, int y)
 {
     scene->addLine(x,y,x-40,y+30);
     scene->addRect(x-40,y+30,80,30);
-    scene->addSimpleText(l->getDataKey())->setPos(x-5,y+30);
+    scene->addSimpleText(l->getDataValue())->setPos(x-5,y+30);
 
 }
 void MainWindow :: drawRightNode (TreeNode * r, int x, int y)
 {
     scene->addLine(x+80,y,x+120,y+30);
     scene->addRect(x+80,y+30,80,30);
-    scene->addSimpleText(r->getDataKey())->setPos(x+100,y+40);
+    scene->addSimpleText(r->getDataValue())->setPos(x+100,y+40);
 }
 
 void MainWindow ::drawCenterNode(TreeNode * c, int x, int y)
@@ -568,104 +583,137 @@ void MainWindow ::drawCenterNode(TreeNode * c, int x, int y)
     scene->addLine(x+40,y,x+40,y+40);
     y+=40;
     scene->addRect(x,y,80,30);
-    scene->addSimpleText(c->getDataKey())->setPos(x+20,y+10);
+    scene->addSimpleText(c->getDataValue())->setPos(x+20,y+10);
 
 }
 
 void MainWindow :: drawnode(TreeNode * v)
 {
-    int x= -170,y=-110,width=80,length=30;
+    int x= 0,y=0,width=80,length=30;
     bool left =true,right=false;
     scene->addRect(x,y,width,length);
     scene->addSimpleText(v->getDataKey())->setPos(x+15,y+10);
     y+=length;
     QVector<TreeNode*> childs = v->getChildren();
+    TreeNode *node=v;
+    QVector<TreeNode*> temp = v->getChildren();
+    temp=childs;
+    int index =0 ;
+    bool first =true;
+    while(node->getCountChildren()>0)
+      {
 
-        for(int i =0 ; i<v->getCountChildren();i++)
+        for(int i =0 ; i<node->getCountChildren();i++)
         {
-            if(v->getCountChildren()==1)
+            if(node->getCountChildren()==1)
             {
                 drawRightNode(childs[i],x,y);
             }
             else
             {
-                if(left)
-                {
-                    int tempX=x,tempY=y;
-                    drawLeftNode(childs[i],x,y);
-                    x-=40;
-                    y+=60;
-                    for(int j = 0 ;j < childs[i]->getCountChildren();j++)
-                    {
-                        if(childs[i]->getCountChildren()==1)
-                        {
-                            drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
-                        }
-                        else{
-                            if(left)
-                            {
+                if(left){drawLeftNode(childs[i],x,y);}
+                if(right){drawRightNode(childs[i],x,y);}//x+=60;y+=60;}
 
-                                drawLeftNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
-
-                            }
-                            if(right)
-                            {
-                                drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
-                            }
-                        }
-                        left = !left;
-                        right =!right;
-
-
-                    }
-                    x=tempX;
-                    y=tempY;
-                }
-
-                if(right)
-                {
-                    int tempX=x,tempY=y;
-                    drawRightNode(childs[i],x,y);
-                    x+=60;
-                    y+=60;
-                    for(int j = 0 ;j < childs[i]->getCountChildren();j++)
-                    {
-                        if(childs[i]->getCountChildren()==1)
-                        {
-                            drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
-
-                        }
-                        else
-                        {
-                            if(left)
-                            {
-
-                                drawLeftNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
-
-                            }
-                            if(right)
-                            {
-                                drawRightNode(childs[i]->getChildrenByIndex(childs[i]->getChildren(),j),x,y);
-                            }
-                        }
-                        left = !left;
-                        right =!right;
-
-
-                    }
-                    x=tempX;
-                    y=tempY;
-                }
-
-             }
-
+            }
             left = !left;
             right =!right;
+        }
+        first=false;
+        x-=40;y+=60;
+        childs =temp;
+        node=childs[index];
+        childs=childs[index]->getChildren();
+        index++;
+        if(index==2){index=0;temp=childs;x+=140;y-=60;}
+    }
+}*/
 
+/////////////////
+void MainWindow::drawTree(TreeNode * no)
+{
+    drawNode(no);
+    int noOfChildren= no->getCountChildren();
+    QVector <TreeNode*> trial= no->getChildren();
+    TreeNode *child=new TreeNode();
+    if(noOfChildren >= 1)
+    {
+        child=trial[0];
+        child->setPosition(0);
+        drawTree(child);
+        //delete trial;
+    }
+    if(noOfChildren >= 2)
+    {
+        child=trial[1];
+        child->setPosition(1);
+        drawTree(child);
+        //delete trial;
+    }
+     if(noOfChildren==3)
+    {
+         child=trial[2];
+         child->setPosition(2);
+         drawTree(child);
+    }
 
+    if(no->getBehind()!=NULL)
+    {
+       drawTree(no->getBehind());
     }
 }
+void MainWindow::drawNode(TreeNode * no)
+{
+    if(no == NULL)
+    {
 
+        scene->clear();
+    }
+    else
+    {
+        QPen pen;
+        QFont font;
+        font.bold();
+        font.setPixelSize(12);
+        pen.setWidth(1);
+        if(no->getDataKey() == "if" || no->getDataKey() == "write"
+                                    || no->getDataKey() == "repeat"
+                                    || no->getDataKey() == "read"
+                                    || no->getDataKey() == "assign")
+        {
+            scene->addRect(x,y,70,50);
+            scene->addSimpleText(no->getDataKey(),font)->setPos(x+20,y+10);
+            x +=40;
+            y +=40;
+        }
+        else
+        {
+            if (no->getPosition()==0)
+            {
+                scene->addEllipse(x-40,y+40,70,50);
+                scene->addSimpleText(no->getDataKey(),font)->setPos(x+20,y+10);
+                scene->addSimpleText(no->getDataValue(),font)->setPos(x+20,y+25);
+                x +=30;
+                //y +=30;
+            }
+            else if (no->getPosition()==1)
+            {
+                scene->addEllipse(x+35,y+40,70,50);
+                scene->addSimpleText(no->getDataKey(),font)->setPos(x+20,y+10);
+                scene->addSimpleText(no->getDataKey(),font)->setPos(x+20,y+25);
+                x +=30;
+                y +=30;
+            }
+       }
+    }
+}
+/*void MainWindow ::drawNode(TreeNode * c)
+{
+    scene->addLine(x+40,y,x+40,y+40);
+    y+=40;
+    scene->addRect(x,y,80,30);
+    scene->addSimpleText(c->getDataKey())->setPos(x+20,y+10);
+
+}*/
 // insert button
 void MainWindow::on_pushButton_5_clicked()
 {
@@ -682,7 +730,8 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_pushButton_6_clicked()
 {
+  x =-200; y=-200;
+  drawTree(rootOfTree);
 
-  drawnode(rootOfTree);
 
 }

@@ -21,7 +21,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     TreeNode *exp ();
-    //void program();
+
     TreeNode *simpleExp();
     TreeNode *term();
     TreeNode *factor();
@@ -33,10 +33,10 @@ public:
     TreeNode *assignStmt();
     TreeNode *writeStmt();
     void drawnode(TreeNode *v);
-    void MainWindow ::drawLeftNode(TreeNode * l, int x, int y);
-    void MainWindow ::drawRightNode(TreeNode * r, int x, int y);
-    void MainWindow ::drawCenterNode(TreeNode * c, int x, int y);
-
+    void drawLeftNode(TreeNode * l, int x, int y);
+    void drawRightNode(TreeNode * r, int x, int y);
+    void drawNode(TreeNode * c);
+    void drawTree(TreeNode * no);
     void match (QString expectedToken);
   private slots:
     void on_pushButton_clicked();
@@ -51,7 +51,6 @@ public:
 
     void on_pushButton_5_clicked();
 
-
     void on_pushButton_6_clicked();
 
 private:
@@ -64,6 +63,7 @@ private:
     bool itFlag;
     TreeNode *rootOfTree=new TreeNode();
     QGraphicsScene *scene;
+    int x,y;
 };
 
 #endif // MAINWINDOW_H

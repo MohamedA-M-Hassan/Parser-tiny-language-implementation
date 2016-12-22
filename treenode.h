@@ -30,6 +30,11 @@ public:
     TreeNode* getChildrenByIndex(QVector <TreeNode*> childs , int index);
     // constructor
     TreeNode(QString k,QString v);
+    bool getStmt();
+    void setStmt(bool s);
+    int getPosition();
+    void setPosition(int s);
+
 private:
     QString dataKey;
     QString dataValue;
@@ -40,6 +45,9 @@ private:
     int lineNo;
     TreeNode *root;
     TreeNode *behind; // stmt behind stmt
+    bool stmt;
+    int positionFlag; // = 0 -> right ; 1 -> left ; 2-> center
+
 };
 
 #endif // TREENODE_H

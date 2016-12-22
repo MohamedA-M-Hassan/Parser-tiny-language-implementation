@@ -21,3 +21,7 @@ TreeNode* TreeNode::getChildrenByIndex(QVector <TreeNode*> childs , int index){r
 void TreeNode::setBehind(TreeNode * b){behind =b;}
 TreeNode *TreeNode::getBehind(){return behind;}
 TreeNode::TreeNode(QString k,QString v){this->dataKey=k;this->dataValue=v;root=NULL;countChildren=0;behind=NULL;}
+bool TreeNode::getStmt(){ return stmt;}
+void TreeNode::setStmt(bool s){ stmt=s;}
+int TreeNode::getPosition(){ return positionFlag;}
+void TreeNode::setPosition(int s){ positionFlag=s;}
